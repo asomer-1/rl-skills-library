@@ -1,0 +1,12 @@
+slug: email/email-drafter
+name: Email Drafter
+description: Draft professional emails in your voice from a brief prompt. Handles tone matching, subject line, and sign-off.
+category: email
+author: asomer-1
+version: 1.0.0
+tags:
+  - email
+  - gmail
+  - drafting
+  - communication
+is_new: true

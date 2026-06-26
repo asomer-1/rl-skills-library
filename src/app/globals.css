@@ -1,0 +1,60 @@
+@import "tailwindcss";
+
+@theme {
+  /* Brand & accent */
+  --color-primary: #e91d2a;
+  --color-yellow-sticker: #fcc20f;
+  --color-purple-stripe: #6a26a4;
+
+  /* Surface */
+  --color-frame-ink: #000000;
+  --color-canvas: #ffffff;
+  --color-ink: #000000;
+  --color-link: #0000ee;
+
+  /* Ribbon-card tint family */
+  --color-tint-olive: #8e8a25;
+  --color-tint-sage: #b3bd95;
+  --color-tint-salmon: #d77a7a;
+  --color-tint-peach: #e6915d;
+  --color-tint-lime: #c0d4a7;
+  --color-tint-sky: #9ab6c8;
+  --color-tint-steel: #a5b8c0;
+  --color-tint-periwinkle: #8c9ae0;
+
+  /* Font families */
+  --font-display: "Arial Black", "Arial Bold", Helvetica, system-ui, sans-serif;
+  --font-heading: Helvetica, Arial, system-ui, sans-serif;
+  --font-body: "Times New Roman", Times, serif;
+
+  /* Border radius — everything square except full */
+  --radius-sm: 0px;
+  --radius: 0px;
+  --radius-md: 0px;
+  --radius-lg: 0px;
+  --radius-xl: 0px;
+  --radius-2xl: 0px;
+  --radius-3xl: 0px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background: #888;
+  color: #000;
+  font-family: "Times New Roman", Times, serif;
+  font-size: 14px;
+  line-height: 1.4;
+  min-height: 100vh;
+}
+
+a {
+  color: #0000ee;
+  text-decoration: underline;
+}
+
+a:visited {
+  color: #551a8b;
+}
