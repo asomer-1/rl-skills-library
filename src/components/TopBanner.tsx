@@ -2,8 +2,6 @@ import Link from 'next/link'
 
 const NAV_ITEMS = [
   { label: 'Browse', href: '/' },
-  { label: 'Categories', href: '/?view=categories' },
-  { label: 'GitHub', href: 'https://github.com/asomer-1/rl-skills-library' },
 ]
 
 const M_STRIPE = 'linear-gradient(to right, #0066b1 0%, #0066b1 33.33%, #1c69d4 33.33%, #1c69d4 66.66%, #e22718 66.66%, #e22718 100%)'
