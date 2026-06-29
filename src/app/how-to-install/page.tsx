@@ -103,7 +103,7 @@ export default function HowToInstallPage() {
             border: '1px solid #3c3c3c',
             borderLeft: '3px solid #0066b1',
             padding: '16px 20px',
-            marginBottom: '40px',
+            marginBottom: '16px',
             fontFamily: '"Inter", sans-serif',
             fontWeight: 300,
             fontSize: '14px',
@@ -114,6 +114,22 @@ export default function HowToInstallPage() {
             <a href="https://docs.anthropic.com/en/docs/claude-code" target="_blank" rel="noreferrer" style={{ color: '#ffffff' }}>
               Claude Code docs →
             </a>
+          </div>
+
+          {/* Let Claude do it note */}
+          <div style={{
+            background: '#0d0d0d',
+            border: '1px solid #3c3c3c',
+            borderLeft: '3px solid #e22718',
+            padding: '16px 20px',
+            marginBottom: '40px',
+            fontFamily: '"Inter", sans-serif',
+            fontWeight: 300,
+            fontSize: '14px',
+            color: '#bbbbbb',
+            lineHeight: 1.6,
+          }}>
+            <strong style={{ color: '#ffffff', fontWeight: 700 }}>Shortcut:</strong> You can skip the manual steps entirely. Copy the skill file content from any skill page, paste it into a Claude Code chat session, and ask Claude to install it — it will create the correct directory structure and place the file for you automatically.
           </div>
 
           {/* Steps */}
