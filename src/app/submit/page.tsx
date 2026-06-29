@@ -126,7 +126,7 @@ export default function SubmitPage() {
 
           <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
             <div>
-              <label style={labelStyle}>GitHub Username *</label>
+              <label style={labelStyle}>Submitter Name *</label>
               <input required style={inputStyle} value={form.submitter_github} onChange={(e) => set('submitter_github', e.target.value)} placeholder="e.g. asomer-1" />
             </div>
             <div>
