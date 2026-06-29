@@ -1,8 +1,9 @@
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
-import { getSkillBySlug, getAllSkills } from '@/lib/data'
+import { getSkillBySlug, getAllSkills, getSkillVersions } from '@/lib/data'
 import { CATEGORY_META } from '@/lib/types'
 import SkillActions from '@/components/SkillActions'
+import VersionHistory from '@/components/VersionHistory'
 
 export const revalidate = 60
 
@@ -19,7 +20,10 @@ export default async function SkillDetailPage(props: PageProps<'/skills/[slug]'>
   const skill = await getSkillBySlug(decodedSlug).catch(() => null)
   if (!skill) notFound()
 
-  const meta = CATEGORY_META[skill.category]
+  const [meta, versions] = await Promise.all([
+    Promise.resolve(CATEGORY_META[skill.category]),
+    getSkillVersions(skill.id),
+  ])
 
   return (
     <div>
@@ -180,6 +184,7 @@ export default async function SkillDetailPage(props: PageProps<'/skills/[slug]'>
               {skill.content}
             </pre>
           </div>
+          <VersionHistory versions={versions} skillName={skill.name} />
         </div>
 
         {/* Sidebar */}

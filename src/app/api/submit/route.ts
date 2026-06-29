@@ -15,7 +15,7 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Invalid category' }, { status: 400 })
     }
 
-    const skill = await publishSkill({
+    const result = await publishSkill({
       skill_name,
       description,
       category: category as Category,
@@ -24,7 +24,11 @@ export async function POST(request: Request) {
       submitter_github,
     })
 
-    return NextResponse.json({ ok: true, slug: skill.slug })
+    if (result.conflict) {
+      return NextResponse.json({ conflict: true, ...result.conflict }, { status: 409 })
+    }
+
+    return NextResponse.json({ ok: true, slug: result.skill.slug })
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : 'Unknown error'
     return NextResponse.json({ error: message }, { status: 500 })

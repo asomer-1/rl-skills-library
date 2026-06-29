@@ -28,6 +28,15 @@ export interface Skill {
   updated_at: string
 }
 
+export interface SkillVersion {
+  id: string
+  skill_id: string
+  version: string
+  content: string
+  author: string
+  created_at: string
+}
+
 export interface Submission {
   id: string
   skill_name: string

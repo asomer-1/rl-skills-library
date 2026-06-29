@@ -10,6 +10,7 @@ export default function SubmitPage() {
   const router = useRouter()
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState('')
+  const [conflict, setConflict] = useState<{ skillId: string; slug: string; version: string } | null>(null)
   const [form, setForm] = useState({
     skill_name: '', description: '', category: 'tools',
     content: '', tags: '', submitter_github: '',
@@ -23,6 +24,7 @@ export default function SubmitPage() {
     e.preventDefault()
     setSubmitting(true)
     setError('')
+    setConflict(null)
     try {
       const res = await fetch('/api/submit', {
         method: 'POST',
@@ -33,11 +35,40 @@ export default function SubmitPage() {
         }),
       })
       const json = await res.json()
+      if (res.status === 409 && json.conflict) {
+        setConflict({ skillId: json.skillId, slug: json.slug, version: json.version })
+        return
+      }
       if (!res.ok) throw new Error(json.error ?? 'Submission failed')
-      const { slug } = json
-      router.push(`/skills/${slug.replace(/\//g, '--')}`)
+      router.push(`/skills/${json.slug.replace(/\//g, '--')}`)
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : 'Submission failed')
+    } finally {
+      setSubmitting(false)
+    }
+  }
+
+  async function handleUpdate() {
+    if (!conflict) return
+    setSubmitting(true)
+    setError('')
+    try {
+      const res = await fetch('/api/update', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          skillId: conflict.skillId,
+          content: form.content,
+          author: form.submitter_github,
+          description: form.description || undefined,
+          tags: form.tags.split(',').map((t) => t.trim()).filter(Boolean),
+        }),
+      })
+      const json = await res.json()
+      if (!res.ok) throw new Error(json.error ?? 'Update failed')
+      router.push(`/skills/${json.slug.replace(/\//g, '--')}`)
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : 'Update failed')
     } finally {
       setSubmitting(false)
     }
@@ -121,6 +152,77 @@ export default function SubmitPage() {
               letterSpacing: '0.5px',
             }}>
               ERROR: {error}
+            </div>
+          )}
+
+          {conflict && (
+            <div style={{
+              border: '1px solid var(--border)',
+              borderLeft: '3px solid #f4b400',
+              background: 'var(--bg-surface)',
+              padding: '20px 24px',
+              marginBottom: '24px',
+            }}>
+              <div style={{
+                fontFamily: '"Inter", sans-serif',
+                fontWeight: 700,
+                fontSize: '13px',
+                color: 'var(--text-primary)',
+                letterSpacing: '0.5px',
+                marginBottom: '8px',
+              }}>
+                SKILL ALREADY EXISTS (v{conflict.version})
+              </div>
+              <div style={{
+                fontFamily: '"Inter", sans-serif',
+                fontWeight: 300,
+                fontSize: '13px',
+                color: 'var(--text-secondary)',
+                marginBottom: '16px',
+                lineHeight: 1.5,
+              }}>
+                A skill with this name already exists in the library. Do you want to update it to a new version using the content above?
+              </div>
+              <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+                <button
+                  type="button"
+                  onClick={handleUpdate}
+                  disabled={submitting}
+                  style={{
+                    fontFamily: '"Inter", sans-serif',
+                    fontWeight: 700,
+                    fontSize: '13px',
+                    letterSpacing: '1px',
+                    padding: '10px 20px',
+                    background: 'var(--text-primary)',
+                    color: 'var(--bg-page)',
+                    border: 'none',
+                    cursor: submitting ? 'not-allowed' : 'pointer',
+                    textTransform: 'uppercase',
+                    opacity: submitting ? 0.5 : 1,
+                  }}
+                >
+                  {submitting ? 'UPDATING...' : 'YES, UPDATE EXISTING →'}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setConflict(null)}
+                  style={{
+                    fontFamily: '"Inter", sans-serif',
+                    fontWeight: 700,
+                    fontSize: '13px',
+                    letterSpacing: '1px',
+                    padding: '10px 20px',
+                    background: 'transparent',
+                    color: 'var(--text-muted)',
+                    border: '1px solid var(--border)',
+                    cursor: 'pointer',
+                    textTransform: 'uppercase',
+                  }}
+                >
+                  CANCEL
+                </button>
+              </div>
             </div>
           )}
 

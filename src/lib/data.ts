@@ -1,5 +1,5 @@
 import { supabase, supabaseAdmin } from './supabase'
-import type { Skill, Submission, Category } from './types'
+import type { Skill, SkillVersion, Category } from './types'
 
 export async function getAllSkills(): Promise<Skill[]> {
   const { data, error } = await supabase
@@ -55,6 +55,89 @@ export async function getSkillsByTag(tag: string): Promise<Skill[]> {
   return data ?? []
 }
 
+export async function getSkillVersions(skillId: string): Promise<SkillVersion[]> {
+  const { data, error } = await supabase
+    .from('skill_versions')
+    .select('*')
+    .eq('skill_id', skillId)
+    .order('created_at', { ascending: false })
+
+  if (error) return []
+  return data ?? []
+}
+
+function bumpMinorVersion(version: string): string {
+  const clean = version.replace(/^v/, '')
+  const [major, minor] = clean.split('.').map(Number)
+  return `${major ?? 1}.${(minor ?? 0) + 1}`
+}
+
+export async function updateSkill(input: {
+  skillId: string
+  content: string
+  author: string
+  description?: string
+  tags?: string[]
+}): Promise<Skill> {
+  // Fetch current skill to snapshot
+  const { data: current, error: fetchError } = await supabaseAdmin
+    .from('skills')
+    .select('version, content, author')
+    .eq('id', input.skillId)
+    .single()
+
+  if (fetchError || !current) throw new Error('Skill not found')
+
+  // Snapshot current version
+  const { error: snapError } = await supabaseAdmin
+    .from('skill_versions')
+    .insert({
+      skill_id: input.skillId,
+      version: current.version,
+      content: current.content,
+      author: current.author,
+    })
+
+  if (snapError) throw snapError
+
+  // Build update payload
+  const nextVersion = bumpMinorVersion(current.version)
+  const updatePayload: Record<string, unknown> = {
+    content: input.content,
+    version: nextVersion,
+    author: input.author,
+    updated_at: new Date().toISOString(),
+  }
+  if (input.description) updatePayload.description = input.description
+
+  const { data: updated, error: updateError } = await supabaseAdmin
+    .from('skills')
+    .update(updatePayload)
+    .eq('id', input.skillId)
+    .select()
+    .single()
+
+  if (updateError) throw updateError
+
+  // Update tags if provided
+  if (input.tags) {
+    await supabaseAdmin.from('skill_tags').delete().eq('skill_id', input.skillId)
+    for (const tagName of input.tags) {
+      const { data: tag, error: tagError } = await supabaseAdmin
+        .from('tags')
+        .upsert({ name: tagName }, { onConflict: 'name' })
+        .select()
+        .single()
+      if (tagError) continue
+      await supabaseAdmin
+        .from('skill_tags')
+        .upsert({ skill_id: input.skillId, tag_id: tag.id }, { onConflict: 'skill_id,tag_id' })
+    }
+  }
+
+  return { ...updated, tags: input.tags ?? [], vote_count: 0, download_count: updated.download_count ?? 0, is_new: false }
+}
+
 export async function incrementDownloadCount(skillId: string): Promise<void> {
   const { data: current } = await supabaseAdmin.from('skills').select('download_count').eq('id', skillId).single()
   const next = (current?.download_count ?? 0) + 1
@@ -98,23 +181,24 @@ export async function publishSkill(input: {
   content: string
   tags: string[]
   submitter_github: string
-}): Promise<Skill> {
+}): Promise<{ skill: Skill; conflict?: { skillId: string; slug: string; version: string } }> {
   const baseSlug = `${input.category}/${input.skill_name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}`
 
-  // Resolve slug conflicts by appending a counter
-  let slug = baseSlug
-  let attempt = 0
-  while (attempt < 10) {
-    const { data: existing } = await supabaseAdmin.from('skills').select('id').eq('slug', slug).single()
-    if (!existing) break
-    attempt++
-    slug = `${baseSlug}-${attempt}`
+  // Check for exact slug conflict first
+  const { data: existing } = await supabaseAdmin
+    .from('skills')
+    .select('id, slug, version')
+    .eq('slug', baseSlug)
+    .single()
+
+  if (existing) {
+    return { skill: {} as Skill, conflict: { skillId: existing.id, slug: existing.slug, version: existing.version } }
   }
 
   const { data: skill, error: skillError } = await supabaseAdmin
     .from('skills')
     .insert({
-      slug,
+      slug: baseSlug,
       name: input.skill_name,
       description: input.description,
       category: input.category,
@@ -128,7 +212,6 @@ export async function publishSkill(input: {
 
   if (skillError) throw skillError
 
-  // Upsert tags and link them
   for (const tagName of input.tags) {
     const { data: tag, error: tagError } = await supabaseAdmin
       .from('tags')
@@ -143,5 +226,5 @@ export async function publishSkill(input: {
       .upsert({ skill_id: skill.id, tag_id: tag.id }, { onConflict: 'skill_id,tag_id' })
   }
 
-  return { ...skill, tags: input.tags, vote_count: 0, is_new: true }
+  return { skill: { ...skill, tags: input.tags, vote_count: 0, download_count: 0, is_new: true } }
 }
