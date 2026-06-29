@@ -76,15 +76,26 @@ export default function Footer() {
           flexWrap: 'wrap',
           gap: '12px',
         }}>
-          <span style={{
-            fontFamily: '"Inter", sans-serif',
-            fontWeight: 300,
-            fontSize: '12px',
-            color: '#7e7e7e',
-            letterSpacing: '0.5px',
-          }}>
-            ©2026 Rocketlane — Internal Tool
-          </span>
+          <div style={{ display: 'flex', gap: '24px', alignItems: 'center', flexWrap: 'wrap' }}>
+            <span style={{
+              fontFamily: '"Inter", sans-serif',
+              fontWeight: 300,
+              fontSize: '12px',
+              color: '#7e7e7e',
+              letterSpacing: '0.5px',
+            }}>
+              ©2026 Rocketlane — Internal Tool
+            </span>
+            <span style={{
+              fontFamily: '"Inter", sans-serif',
+              fontWeight: 300,
+              fontSize: '12px',
+              color: '#4a4a4a',
+              letterSpacing: '0.5px',
+            }}>
+              Built by asomer-1
+            </span>
+          </div>
           <Link href="https://github.com/asomer-1/rl-skills-library" style={{
             fontFamily: '"Inter", sans-serif',
             fontWeight: 700,
