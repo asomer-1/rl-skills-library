@@ -22,6 +22,7 @@ export interface Skill {
   github_path: string
   is_new: boolean
   vote_count: number
+  download_count: number
   tags: string[]
   created_at: string
   updated_at: string

@@ -205,6 +205,7 @@ export default async function SkillDetailPage(props: PageProps<'/skills/[slug]'>
                 { label: 'CATEGORY', value: meta?.label ?? skill.category },
                 { label: 'ADDED', value: new Date(skill.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) },
                 { label: 'VOTES', value: String(skill.vote_count) },
+                { label: 'DOWNLOADS', value: String(skill.download_count ?? 0) },
               ].map(({ label, value }, i, arr) => (
                 <div key={label} style={{
                   background: '#0d0d0d',

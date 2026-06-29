@@ -4,25 +4,44 @@ import SkillCard from '@/components/SkillCard'
 import SectionLabelBar from '@/components/SectionEyebrow'
 import SearchBar from '@/components/SearchBar'
 import FeaturedSkill from '@/components/FeaturedSkill'
+import SortBar from '@/components/SortBar'
 import { getAllSkills, searchSkills, getSkillsByTag } from '@/lib/data'
-import { CATEGORY_META, CATEGORIES, type Category } from '@/lib/types'
+import { CATEGORY_META, CATEGORIES, type Category, type Skill } from '@/lib/types'
 
 export const revalidate = 60
 
 const M_STRIPE = 'linear-gradient(to right, #0066b1 0%, #0066b1 33.33%, #1c69d4 33.33%, #1c69d4 66.66%, #e22718 66.66%, #e22718 100%)'
 
 interface HomeProps {
-  searchParams: Promise<{ q?: string; tag?: string; category?: string }>
+  searchParams: Promise<{ q?: string; tag?: string; category?: string; sort?: string; dir?: string }>
+}
+
+function applySortDir(arr: Skill[], sort: string, dir: string): Skill[] {
+  return [...arr].sort((a, b) => {
+    let av: string | number
+    let bv: string | number
+    if (sort === 'downloads') { av = a.download_count ?? 0; bv = b.download_count ?? 0 }
+    else if (sort === 'votes') { av = a.vote_count; bv = b.vote_count }
+    else if (sort === 'alpha') { av = a.name.toLowerCase(); bv = b.name.toLowerCase() }
+    else { av = a.created_at; bv = b.created_at }
+    if (av < bv) return dir === 'asc' ? -1 : 1
+    if (av > bv) return dir === 'asc' ? 1 : -1
+    return 0
+  })
 }
 
 export default async function HomePage({ searchParams }: HomeProps) {
-  const { q, tag, category } = await searchParams
+  const { q, tag, category, sort: sortParam, dir: dirParam } = await searchParams
+  const sort = sortParam ?? 'date'
+  const dir = dirParam ?? (sort === 'alpha' ? 'asc' : 'desc')
 
   let skills = await getAllSkills().catch(() => [])
 
   if (q) skills = await searchSkills(q).catch(() => [])
   else if (tag) skills = await getSkillsByTag(tag).catch(() => [])
   else if (category) skills = skills.filter((s) => s.category === category)
+
+  skills = applySortDir(skills, sort, dir)
 
   const grouped = CATEGORIES.reduce<Record<Category, typeof skills>>((acc, cat) => {
     acc[cat] = skills.filter((s) => s.category === cat)
@@ -158,6 +177,10 @@ export default async function HomePage({ searchParams }: HomeProps) {
       <div style={{ maxWidth: '1440px', margin: '0 auto', display: 'flex', padding: '40px', gap: '64px' }}>
         {/* Main column */}
         <div style={{ flex: 1, minWidth: 0 }}>
+          <Suspense fallback={null}>
+            <SortBar />
+          </Suspense>
+
           {isFiltered ? (
             <div>
               <SectionLabelBar

@@ -19,20 +19,17 @@ export default function SkillCard({ skill }: SkillCardProps) {
         alignItems: 'center',
         gap: '16px',
       }}>
-        {skill.is_new && (
-          <div style={{
-            border: '1px solid #ffffff',
-            color: '#ffffff',
-            fontFamily: '"Inter", sans-serif',
-            fontWeight: 700,
-            fontSize: '10px',
-            padding: '2px 7px',
-            letterSpacing: '1.5px',
-            flexShrink: 0,
-          }}>
-            NEW
-          </div>
-        )}
+        <div style={{
+          fontFamily: '"Inter", sans-serif',
+          fontWeight: 300,
+          fontSize: '11px',
+          color: '#7e7e7e',
+          letterSpacing: '0.5px',
+          flexShrink: 0,
+          minWidth: '80px',
+        }}>
+          {new Date(skill.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+        </div>
 
         <div style={{ flex: 1, minWidth: 0 }}>
           <div style={{
@@ -76,15 +73,16 @@ export default function SkillCard({ skill }: SkillCardProps) {
         </div>
 
         <div style={{
+          display: 'flex',
+          gap: '12px',
+          flexShrink: 0,
           fontFamily: '"Inter", sans-serif',
           fontWeight: 300,
           fontSize: '13px',
           color: '#7e7e7e',
-          flexShrink: 0,
-          minWidth: '48px',
-          textAlign: 'right',
         }}>
-          {skill.vote_count} ▲
+          <span>{skill.download_count ?? 0} ↓</span>
+          <span>{skill.vote_count} ▲</span>
         </div>
 
         <div style={{

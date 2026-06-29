@@ -50,6 +50,7 @@ export default function SkillActions({ content, filename, skillId, initialCount 
     a.click()
     document.body.removeChild(a)
     URL.revokeObjectURL(url)
+    fetch('/api/download', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ skillId }) }).catch(() => {})
   }
 
   async function handleVote() {

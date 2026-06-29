@@ -35,6 +35,7 @@ export default function FeaturedSkill({ skills }: { skills: Skill[] }) {
     a.download = `${filename}.md`
     a.click()
     URL.revokeObjectURL(url)
+    fetch('/api/download', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ skillId: skill!.id }) }).catch(() => {})
   }
 
   return (

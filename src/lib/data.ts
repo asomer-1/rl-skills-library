@@ -55,6 +55,13 @@ export async function getSkillsByTag(tag: string): Promise<Skill[]> {
   return data ?? []
 }
 
+export async function incrementDownloadCount(skillId: string): Promise<void> {
+  const { data: current } = await supabaseAdmin.from('skills').select('download_count').eq('id', skillId).single()
+  const next = (current?.download_count ?? 0) + 1
+  const { error } = await supabaseAdmin.from('skills').update({ download_count: next }).eq('id', skillId)
+  if (error) throw error
+}
+
 export async function voteForSkill(skillId: string, userGithub: string): Promise<void> {
   const { error } = await supabase
     .from('votes')
