@@ -1,3 +1,5 @@
+const M_STRIPE = 'linear-gradient(to right, #0066b1 0%, #0066b1 33.33%, #1c69d4 33.33%, #1c69d4 66.66%, #e22718 66.66%, #e22718 100%)'
+
 interface SectionLabelBarProps {
   label: string
   count?: number
@@ -5,38 +7,31 @@ interface SectionLabelBarProps {
 
 export default function SectionLabelBar({ label, count }: SectionLabelBarProps) {
   return (
-    <div style={{
-      background: '#7a8aba',
-      borderTop: '1px solid rgba(255,255,255,0.4)',
-      borderBottom: '1px solid #3d4f97',
-      padding: '4px 10px',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'space-between',
-    }}>
-      <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-        <span style={{ color: 'rgba(255,255,255,0.6)', fontSize: '10px' }}>≡</span>
+    <div style={{ marginBottom: '24px' }}>
+      <div style={{ height: '4px', background: M_STRIPE, marginBottom: '20px' }} />
+      <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between' }}>
         <span style={{
-          fontFamily: 'Arial, sans-serif',
+          fontFamily: '"Inter", sans-serif',
           fontWeight: 700,
-          fontSize: '11px',
-          color: '#21242e',
+          fontSize: '14px',
+          color: '#ffffff',
           textTransform: 'uppercase',
-          letterSpacing: '0.5px',
+          letterSpacing: '1.5px',
         }}>
           {label}
         </span>
+        {count !== undefined && (
+          <span style={{
+            fontFamily: '"Inter", sans-serif',
+            fontWeight: 300,
+            fontSize: '12px',
+            color: '#7e7e7e',
+            letterSpacing: '0.5px',
+          }}>
+            {count} {count === 1 ? 'SKILL' : 'SKILLS'}
+          </span>
+        )}
       </div>
-      {count !== undefined && (
-        <span style={{
-          fontFamily: 'Arial, sans-serif',
-          fontSize: '10px',
-          color: 'rgba(33,36,46,0.6)',
-          fontWeight: 700,
-        }}>
-          {count} {count === 1 ? 'SKILL' : 'SKILLS'}
-        </span>
-      )}
     </div>
   )
 }

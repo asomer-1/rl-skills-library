@@ -8,6 +8,8 @@ import { CATEGORY_META, CATEGORIES, type Category } from '@/lib/types'
 
 export const revalidate = 60
 
+const M_STRIPE = 'linear-gradient(to right, #0066b1 0%, #0066b1 33.33%, #1c69d4 33.33%, #1c69d4 66.66%, #e22718 66.66%, #e22718 100%)'
+
 interface HomeProps {
   searchParams: Promise<{ q?: string; tag?: string; category?: string }>
 }
@@ -28,236 +30,301 @@ export default async function HomePage({ searchParams }: HomeProps) {
 
   const allTags = Array.from(new Set(skills.flatMap((s) => s.tags ?? []))).sort()
   const isFiltered = !!(q || tag || category)
+  const topSkills = [...skills].sort((a, b) => b.vote_count - a.vote_count).slice(0, 5)
 
   return (
     <div>
-      {/* Hero panel */}
+      {/* Hero band */}
       <div style={{
-        background: 'linear-gradient(135deg, #acace7 0%, #8ba1d4 100%)',
-        borderBottom: '2px solid #3d4f97',
-        padding: '20px 16px',
-        position: 'relative',
-        overflow: 'hidden',
+        background: '#0d0d0d',
+        borderBottom: '1px solid #3c3c3c',
+        padding: '96px 40px',
       }}>
-        {/* Circuit-board texture overlay */}
-        <div style={{
-          position: 'absolute', inset: 0, opacity: 0.06,
-          backgroundImage: 'repeating-linear-gradient(0deg, #3d4f97 0px, transparent 1px, transparent 20px), repeating-linear-gradient(90deg, #3d4f97 0px, transparent 1px, transparent 20px)',
-          backgroundSize: '20px 20px',
-          pointerEvents: 'none',
-        }} />
-        <div style={{ position: 'relative', zIndex: 1 }}>
+        <div style={{ maxWidth: '1440px', margin: '0 auto' }}>
           <div style={{
-            fontFamily: '"Arial Black", Arial, sans-serif',
-            fontWeight: 900,
-            fontSize: '36px',
-            color: '#fff',
-            textShadow: '2px 2px 0 #3d4f97, -1px -1px 0 #3d4f97',
-            WebkitTextStroke: '1px #3d4f97',
-            lineHeight: 1,
-            marginBottom: '8px',
-          }}>
-            RL SKILLS LIBRARY
-          </div>
-          <div style={{
-            fontFamily: 'Arial, sans-serif',
+            fontFamily: '"Inter", sans-serif',
             fontWeight: 700,
-            fontSize: '14px',
-            color: '#21242e',
-            marginBottom: '14px',
+            fontSize: '72px',
+            color: '#ffffff',
+            lineHeight: 1,
+            letterSpacing: '-1px',
+            textTransform: 'uppercase',
+            marginBottom: '24px',
           }}>
-            Ready-to-use Claude Code skills built by the Rocketlane team.
+            RL SKILLS<br />LIBRARY.
           </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+          <div style={{
+            fontFamily: '"Inter", sans-serif',
+            fontWeight: 300,
+            fontSize: '18px',
+            color: '#bbbbbb',
+            marginBottom: '40px',
+            maxWidth: '480px',
+            lineHeight: 1.5,
+          }}>
+            Ready-to-use Claude Code skills built by the Rocketlane team. Browse, vote, and contribute.
+          </div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '16px', flexWrap: 'wrap' }}>
             <Suspense fallback={null}>
               <SearchBar />
             </Suspense>
             <Link href="/submit" style={{
-              background: '#f68d1f',
-              color: '#fff',
-              fontFamily: 'Arial, sans-serif',
+              fontFamily: '"Inter", sans-serif',
               fontWeight: 700,
-              fontSize: '11px',
-              padding: '5px 14px',
-              borderRadius: '2px',
+              fontSize: '14px',
+              color: '#000000',
+              letterSpacing: '1.5px',
               textDecoration: 'none',
-              letterSpacing: '0.5px',
-              borderTop: '1px solid rgba(255,255,255,0.4)',
-              borderBottom: '1px solid rgba(0,0,0,0.2)',
+              textTransform: 'uppercase',
+              background: '#ffffff',
+              padding: '0 32px',
+              height: '48px',
+              display: 'inline-flex',
+              alignItems: 'center',
             }}>
-              SUBMIT A SKILL ›
+              SUBMIT SKILL →
             </Link>
           </div>
         </div>
       </div>
 
-      {/* Body — two-column */}
-      <div style={{ display: 'flex' }}>
-        {/* Main content column */}
-        <div style={{ flex: 1, minWidth: 0, padding: '10px 10px 10px 12px', background: '#7a8aba' }}>
+      {/* M stripe divider */}
+      <div style={{ height: '4px', background: M_STRIPE }} />
+
+      {/* Category tabs */}
+      <div style={{
+        background: '#000000',
+        borderBottom: '1px solid #3c3c3c',
+        padding: '0 40px',
+      }}>
+        <div style={{
+          maxWidth: '1440px',
+          margin: '0 auto',
+          display: 'flex',
+          gap: '32px',
+          overflowX: 'auto',
+        }}>
+          <Link href="/" style={{
+            fontFamily: '"Inter", sans-serif',
+            fontWeight: 700,
+            fontSize: '14px',
+            letterSpacing: '1.5px',
+            textTransform: 'uppercase',
+            textDecoration: 'none',
+            padding: '16px 0',
+            color: !isFiltered ? '#ffffff' : '#7e7e7e',
+            borderBottom: !isFiltered ? '2px solid #ffffff' : '2px solid transparent',
+            whiteSpace: 'nowrap',
+            display: 'inline-block',
+          }}>
+            ALL
+          </Link>
+          {CATEGORIES.map((cat) => (
+            <Link key={cat} href={`/?category=${cat}`} style={{
+              fontFamily: '"Inter", sans-serif',
+              fontWeight: 700,
+              fontSize: '14px',
+              letterSpacing: '1.5px',
+              textTransform: 'uppercase',
+              textDecoration: 'none',
+              padding: '16px 0',
+              color: category === cat ? '#ffffff' : '#7e7e7e',
+              borderBottom: category === cat ? '2px solid #ffffff' : '2px solid transparent',
+              whiteSpace: 'nowrap',
+              display: 'inline-block',
+            }}>
+              {CATEGORY_META[cat].label}
+            </Link>
+          ))}
+        </div>
+      </div>
+
+      {/* Body */}
+      <div style={{ maxWidth: '1440px', margin: '0 auto', display: 'flex', padding: '40px', gap: '64px' }}>
+        {/* Main column */}
+        <div style={{ flex: 1, minWidth: 0 }}>
           {isFiltered ? (
             <div>
               <SectionLabelBar
                 label={q ? `RESULTS FOR "${q.toUpperCase()}"` : tag ? `TAG: ${tag.toUpperCase()}` : CATEGORY_META[category as Category]?.label ?? category!}
                 count={skills.length}
               />
-              <div style={{ marginTop: '4px' }}>
-                {skills.length === 0 ? (
-                  <div style={{
-                    background: '#dedede', borderRadius: '4px', padding: '16px',
-                    fontFamily: 'Arial, sans-serif', fontSize: '12px', color: '#21242e',
-                    borderTop: '1px solid rgba(255,255,255,0.8)', borderBottom: '1px solid #5a5f8c',
-                  }}>
-                    No skills found. <Link href="/" style={{ color: '#3d4f97', fontWeight: 700 }}>Browse all</Link> or <Link href="/submit" style={{ color: '#f68d1f', fontWeight: 700 }}>submit one ›</Link>
-                  </div>
-                ) : (
-                  skills.map((skill) => <SkillCard key={skill.id} skill={skill} />)
-                )}
-              </div>
+              {skills.length === 0 ? (
+                <div style={{
+                  background: '#1a1a1a',
+                  border: '1px solid #3c3c3c',
+                  padding: '40px 24px',
+                  fontFamily: '"Inter", sans-serif',
+                  fontWeight: 300,
+                  fontSize: '14px',
+                  color: '#7e7e7e',
+                }}>
+                  No skills found.{' '}
+                  <Link href="/" style={{ color: '#ffffff' }}>Browse all</Link>
+                  {' '}or{' '}
+                  <Link href="/submit" style={{ color: '#ffffff' }}>submit one →</Link>
+                </div>
+              ) : (
+                <div style={{ border: '1px solid #3c3c3c' }}>
+                  {skills.map((skill) => <SkillCard key={skill.id} skill={skill} />)}
+                </div>
+              )}
             </div>
           ) : (
-            CATEGORIES.map((cat) => {
-              const catSkills = grouped[cat]
-              if (catSkills.length === 0) return null
-              return (
-                <div key={cat} style={{ marginBottom: '12px' }}>
-                  <SectionLabelBar label={CATEGORY_META[cat].label} count={catSkills.length} />
-                  <div style={{ marginTop: '4px' }}>
-                    {catSkills.map((skill) => <SkillCard key={skill.id} skill={skill} />)}
+            <div>
+              {CATEGORIES.map((cat) => {
+                const catSkills = grouped[cat]
+                if (catSkills.length === 0) return null
+                return (
+                  <div key={cat} style={{ marginBottom: '48px' }}>
+                    <SectionLabelBar label={CATEGORY_META[cat].label} count={catSkills.length} />
+                    <div style={{ border: '1px solid #3c3c3c' }}>
+                      {catSkills.map((skill) => <SkillCard key={skill.id} skill={skill} />)}
+                    </div>
                   </div>
-                </div>
-              )
-            })
+                )
+              })}
+            </div>
           )}
 
           {!isFiltered && skills.length === 0 && (
             <div style={{
-              background: '#acace7', borderRadius: '6px', padding: '32px 24px', textAlign: 'center',
-              borderTop: '1px solid rgba(255,255,255,0.5)', borderBottom: '1px solid #3d4f97',
+              background: '#1a1a1a',
+              border: '1px solid #3c3c3c',
+              padding: '64px 40px',
+              textAlign: 'center',
             }}>
-              <div style={{ fontFamily: '"Arial Black", Arial, sans-serif', fontWeight: 900, fontSize: '18px', color: '#21242e', marginBottom: '8px' }}>
-                NO SKILLS YET
-              </div>
-              <p style={{ fontFamily: 'Arial, sans-serif', fontSize: '12px', color: '#21242e', marginBottom: '14px' }}>
-                Be the first to submit a skill to the library.
-              </p>
-              <Link href="/submit" style={{
-                background: '#f68d1f', color: '#fff', fontFamily: 'Arial, sans-serif', fontWeight: 700,
-                fontSize: '11px', padding: '7px 18px', borderRadius: '2px', textDecoration: 'none', letterSpacing: '0.5px',
+              <div style={{
+                fontFamily: '"Inter", sans-serif',
+                fontWeight: 700,
+                fontSize: '32px',
+                color: '#ffffff',
+                textTransform: 'uppercase',
+                letterSpacing: '-0.5px',
+                marginBottom: '16px',
               }}>
-                SUBMIT THE FIRST SKILL ›
+                NO SKILLS YET.
+              </div>
+              <div style={{
+                fontFamily: '"Inter", sans-serif',
+                fontWeight: 300,
+                fontSize: '16px',
+                color: '#bbbbbb',
+                marginBottom: '32px',
+              }}>
+                Be the first to submit a skill to the library.
+              </div>
+              <Link href="/submit" style={{
+                fontFamily: '"Inter", sans-serif',
+                fontWeight: 700,
+                fontSize: '14px',
+                color: '#000000',
+                letterSpacing: '1.5px',
+                background: '#ffffff',
+                padding: '14px 32px',
+                display: 'inline-block',
+                textTransform: 'uppercase',
+              }}>
+                SUBMIT THE FIRST SKILL →
               </Link>
             </div>
           )}
         </div>
 
-        {/* Right action rail */}
-        <div style={{
-          width: '190px',
-          minWidth: '190px',
-          borderLeft: '2px solid #3d4f97',
-          background: '#7a8aba',
-          padding: '10px 10px',
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '10px',
-        }}>
-          {/* Player's Poll analog — top skills */}
-          <div style={{
-            background: '#8ba1d4',
-            borderRadius: '6px',
-            borderTop: '1px solid rgba(255,255,255,0.4)',
-            borderBottom: '1px solid #3d4f97',
-            overflow: 'hidden',
-          }}>
-            <div style={{
-              background: '#7a8aba',
-              borderBottom: '1px solid #3d4f97',
-              padding: '4px 8px',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '5px',
-            }}>
-              <span style={{ color: 'rgba(255,255,255,0.6)', fontSize: '10px' }}>≡</span>
-              <span style={{ fontFamily: 'Arial, sans-serif', fontWeight: 700, fontSize: '11px', color: '#21242e', letterSpacing: '0.5px', textTransform: 'uppercase' }}>
-                TOP SKILLS
-              </span>
-            </div>
-            <div style={{ padding: '8px' }}>
-              {skills.slice(0, 5).map((skill, i) => (
-                <Link key={skill.id} href={`/skills/${skill.slug.replace(/\//g, '--')}`} style={{
-                  display: 'flex', alignItems: 'center', gap: '6px',
-                  padding: '4px 0', borderBottom: i < 4 ? '1px dotted #60619c' : 'none',
-                  textDecoration: 'none',
-                }}>
-                  <span style={{ fontFamily: 'Arial, sans-serif', fontWeight: 700, fontSize: '10px', color: '#e48600', width: '14px', flexShrink: 0 }}>{i + 1}.</span>
-                  <span style={{ fontFamily: 'Arial, sans-serif', fontSize: '11px', color: '#3d4f97', fontWeight: 700, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', flex: 1 }}>{skill.name}</span>
-                  <span style={{ fontFamily: 'Arial, sans-serif', fontSize: '10px', color: '#21242e', opacity: 0.6, flexShrink: 0 }}>{skill.vote_count}▲</span>
-                </Link>
-              ))}
-              {skills.length === 0 && (
-                <p style={{ fontFamily: 'Arial, sans-serif', fontSize: '11px', color: '#21242e', margin: 0 }}>No skills yet.</p>
-              )}
-            </div>
-          </div>
-
-          {/* Action buttons — carbon slab style */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-            {[
-              { label: '▶  SUBMIT SKILL', href: '/submit', primary: true },
-              { label: '⊞  BROWSE ALL', href: '/' },
-              { label: '⌥  GITHUB REPO', href: 'https://github.com/asomer-1/rl-skills-library' },
-              { label: '✉  CONTACT', href: 'mailto:asomer@rocketlane.com' },
-            ].map((btn) => (
-              <Link key={btn.label} href={btn.href} style={{
-                background: btn.primary ? '#f68d1f' : '#21242e',
-                backgroundImage: btn.primary ? 'none' : 'radial-gradient(circle, rgba(255,255,255,0.06) 1px, transparent 1px)',
-                backgroundSize: '4px 4px',
-                color: '#fff',
-                fontFamily: 'Arial, sans-serif',
-                fontWeight: 700,
-                fontSize: '11px',
-                padding: '7px 10px',
-                borderRadius: btn.primary ? '2px' : '0',
-                textDecoration: 'none',
-                letterSpacing: '0.5px',
-                display: 'block',
-                borderTop: btn.primary ? '1px solid rgba(255,255,255,0.4)' : '1px solid rgba(255,255,255,0.1)',
-                borderBottom: '1px solid rgba(0,0,0,0.3)',
-              }}>
-                {btn.label}
-              </Link>
-            ))}
-          </div>
-
-          {/* Info box — tag browser */}
-          {allTags.length > 0 && (
-            <div style={{
-              background: '#fff',
-              borderRadius: '4px',
-              borderTop: '1px solid rgba(255,255,255,0.8)',
-              borderBottom: '1px solid #5a5f8c',
-              overflow: 'hidden',
-            }}>
+        {/* Right sidebar */}
+        <div style={{ width: '280px', minWidth: '280px', flexShrink: 0 }}>
+          {/* Top skills */}
+          {topSkills.length > 0 && (
+            <div style={{ marginBottom: '40px' }}>
+              <div style={{ height: '4px', background: M_STRIPE, marginBottom: '20px' }} />
               <div style={{
-                background: '#ecab37',
-                padding: '3px 8px',
-                fontFamily: 'Arial, sans-serif',
+                fontFamily: '"Inter", sans-serif',
                 fontWeight: 700,
-                fontSize: '10px',
-                color: '#21242e',
-                letterSpacing: '0.5px',
+                fontSize: '14px',
+                color: '#ffffff',
+                textTransform: 'uppercase',
+                letterSpacing: '1.5px',
+                marginBottom: '16px',
+              }}>
+                TOP SKILLS
+              </div>
+              <div style={{ border: '1px solid #3c3c3c' }}>
+                {topSkills.map((skill, i) => (
+                  <Link key={skill.id} href={`/skills/${skill.slug.replace(/\//g, '--')}`} style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '12px',
+                    padding: '14px 16px',
+                    borderBottom: i < topSkills.length - 1 ? '1px solid #3c3c3c' : 'none',
+                    background: '#1a1a1a',
+                    textDecoration: 'none',
+                  }}>
+                    <span style={{
+                      fontFamily: '"Inter", sans-serif',
+                      fontWeight: 700,
+                      fontSize: '12px',
+                      color: '#7e7e7e',
+                      letterSpacing: '0.5px',
+                      width: '20px',
+                      flexShrink: 0,
+                    }}>
+                      {String(i + 1).padStart(2, '0')}
+                    </span>
+                    <span style={{
+                      fontFamily: '"Inter", sans-serif',
+                      fontWeight: 400,
+                      fontSize: '14px',
+                      color: '#e6e6e6',
+                      flex: 1,
+                      overflow: 'hidden',
+                      textOverflow: 'ellipsis',
+                      whiteSpace: 'nowrap',
+                    }}>
+                      {skill.name}
+                    </span>
+                    <span style={{
+                      fontFamily: '"Inter", sans-serif',
+                      fontWeight: 300,
+                      fontSize: '12px',
+                      color: '#7e7e7e',
+                      flexShrink: 0,
+                    }}>
+                      {skill.vote_count} ▲
+                    </span>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Tag browser */}
+          {allTags.length > 0 && (
+            <div>
+              <div style={{ height: '4px', background: M_STRIPE, marginBottom: '20px' }} />
+              <div style={{
+                fontFamily: '"Inter", sans-serif',
+                fontWeight: 700,
+                fontSize: '14px',
+                color: '#ffffff',
+                textTransform: 'uppercase',
+                letterSpacing: '1.5px',
+                marginBottom: '16px',
               }}>
                 BROWSE BY TAG
               </div>
-              <div style={{ padding: '8px', display: 'flex', flexWrap: 'wrap', gap: '3px' }}>
-                {allTags.slice(0, 16).map((t) => (
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+                {allTags.slice(0, 20).map((t) => (
                   <Link key={t} href={`/?tag=${encodeURIComponent(t)}`} style={{
-                    fontFamily: 'Arial, sans-serif', fontSize: '10px', fontWeight: 700,
-                    color: tag === t ? '#fff' : '#3d4f97',
-                    background: tag === t ? '#3d4f97' : '#e8ecf8',
-                    border: '1px solid #5a5f8c',
-                    padding: '1px 5px', borderRadius: '2px', textDecoration: 'none',
+                    fontFamily: '"Inter", sans-serif',
+                    fontWeight: 700,
+                    fontSize: '11px',
+                    color: tag === t ? '#000000' : '#bbbbbb',
+                    background: tag === t ? '#ffffff' : 'transparent',
+                    border: '1px solid #3c3c3c',
+                    padding: '5px 10px',
+                    letterSpacing: '0.5px',
+                    textDecoration: 'none',
+                    textTransform: 'uppercase',
                   }}>
                     {t}
                   </Link>
@@ -265,6 +332,43 @@ export default async function HomePage({ searchParams }: HomeProps) {
               </div>
             </div>
           )}
+        </div>
+      </div>
+
+      {/* CTA band */}
+      <div style={{
+        background: '#0d0d0d',
+        borderTop: '1px solid #3c3c3c',
+        borderBottom: '1px solid #3c3c3c',
+        padding: '80px 40px',
+        textAlign: 'center',
+      }}>
+        <div style={{ maxWidth: '1440px', margin: '0 auto' }}>
+          <div style={{
+            fontFamily: '"Inter", sans-serif',
+            fontWeight: 700,
+            fontSize: '40px',
+            color: '#ffffff',
+            textTransform: 'uppercase',
+            letterSpacing: '-0.5px',
+            marginBottom: '24px',
+          }}>
+            HAVE A SKILL TO SHARE?
+          </div>
+          <Link href="/submit" style={{
+            fontFamily: '"Inter", sans-serif',
+            fontWeight: 700,
+            fontSize: '14px',
+            color: '#ffffff',
+            letterSpacing: '1.5px',
+            textDecoration: 'none',
+            textTransform: 'uppercase',
+            border: '1px solid #ffffff',
+            padding: '14px 40px',
+            display: 'inline-block',
+          }}>
+            SUBMIT FOR REVIEW →
+          </Link>
         </div>
       </div>
     </div>

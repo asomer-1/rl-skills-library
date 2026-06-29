@@ -40,36 +40,25 @@ export default function VoteButton({ skillId, initialCount, initialVoted, userGi
       onClick={handleVote}
       disabled={loading}
       style={{
-        fontFamily: 'Arial, sans-serif',
+        fontFamily: '"Inter", sans-serif',
         fontWeight: 700,
-        fontSize: '11px',
-        padding: '5px 14px',
-        background: voted ? '#e60012' : '#f68d1f',
-        color: '#fff',
-        border: 'none',
-        borderRadius: '2px',
+        fontSize: '14px',
+        padding: '0 32px',
+        background: voted ? '#ffffff' : 'transparent',
+        color: voted ? '#000000' : '#ffffff',
+        border: '1px solid #ffffff',
+        borderRadius: '0',
         cursor: loading ? 'not-allowed' : 'pointer',
-        letterSpacing: '0.5px',
+        letterSpacing: '1.5px',
+        height: '48px',
+        textTransform: 'uppercase',
         display: 'flex',
         alignItems: 'center',
-        gap: '6px',
-        opacity: loading ? 0.6 : 1,
-        borderTop: '1px solid rgba(255,255,255,0.4)',
-        borderBottom: '1px solid rgba(0,0,0,0.2)',
+        gap: '10px',
+        opacity: loading ? 0.5 : 1,
       }}
     >
-      <span style={{
-        width: '22px',
-        height: '22px',
-        borderRadius: '9999px',
-        background: 'rgba(0,0,0,0.2)',
-        display: 'inline-flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        fontSize: '12px',
-      }}>
-        {voted ? '▲' : '△'}
-      </span>
+      <span style={{ fontSize: '16px' }}>{voted ? '▲' : '△'}</span>
       {count} {count === 1 ? 'VOTE' : 'VOTES'}
     </button>
   )

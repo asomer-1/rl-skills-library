@@ -1,47 +1,75 @@
 import Link from 'next/link'
 
+const M_STRIPE = 'linear-gradient(to right, #0066b1 0%, #0066b1 33.33%, #1c69d4 33.33%, #1c69d4 66.66%, #e22718 66.66%, #e22718 100%)'
+
 export default function SubmitSuccessPage() {
   return (
     <div>
+      {/* Hero */}
       <div style={{
-        background: 'linear-gradient(135deg, #acace7 0%, #8ba1d4 100%)',
-        borderBottom: '2px solid #3d4f97', padding: '14px 16px',
+        background: '#0d0d0d',
+        borderBottom: '1px solid #3c3c3c',
+        padding: '96px 40px',
       }}>
-        <div style={{
-          fontFamily: '"Arial Black", Arial, sans-serif', fontWeight: 900, fontSize: '24px',
-          color: '#fff', textShadow: '2px 2px 0 #3d4f97', WebkitTextStroke: '0.5px #3d4f97',
-        }}>
-          SUBMISSION RECEIVED
-        </div>
-      </div>
-      <div style={{ padding: '24px 16px', maxWidth: '520px' }}>
-        <div style={{
-          background: '#dedede', borderRadius: '6px', padding: '16px',
-          borderTop: '1px solid rgba(255,255,255,0.8)', borderBottom: '1px solid #5a5f8c',
-          marginBottom: '14px',
-        }}>
-          <p style={{ fontFamily: 'Arial, sans-serif', fontSize: '13px', lineHeight: 1.5, margin: 0, color: '#21242e' }}>
+        <div style={{ maxWidth: '1440px', margin: '0 auto' }}>
+          <div style={{ height: '4px', background: M_STRIPE, marginBottom: '40px', maxWidth: '120px' }} />
+          <div style={{
+            fontFamily: '"Inter", sans-serif',
+            fontWeight: 700,
+            fontSize: '56px',
+            color: '#ffffff',
+            lineHeight: 1.05,
+            letterSpacing: '-1px',
+            textTransform: 'uppercase',
+            marginBottom: '24px',
+          }}>
+            SUBMISSION<br />RECEIVED.
+          </div>
+          <div style={{
+            fontFamily: '"Inter", sans-serif',
+            fontWeight: 300,
+            fontSize: '18px',
+            color: '#bbbbbb',
+            maxWidth: '480px',
+            lineHeight: 1.6,
+            marginBottom: '40px',
+          }}>
             Your skill has been submitted for review. A team member will review and merge it within 1–2 business days. Once approved, it will appear in the library automatically.
-          </p>
-        </div>
-        <div style={{ display: 'flex', gap: '8px' }}>
-          <Link href="/" style={{
-            background: '#f68d1f', color: '#fff', fontFamily: 'Arial, sans-serif', fontWeight: 700,
-            fontSize: '11px', padding: '7px 16px', borderRadius: '2px', textDecoration: 'none', letterSpacing: '0.5px',
-            borderTop: '1px solid rgba(255,255,255,0.4)', borderBottom: '1px solid rgba(0,0,0,0.2)',
-          }}>
-            ‹ BROWSE LIBRARY
-          </Link>
-          <Link href="/submit" style={{
-            background: '#21242e',
-            backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.06) 1px, transparent 1px)',
-            backgroundSize: '4px 4px',
-            color: '#fff', fontFamily: 'Arial, sans-serif', fontWeight: 700,
-            fontSize: '11px', padding: '7px 16px', textDecoration: 'none', letterSpacing: '0.5px',
-            borderTop: '1px solid rgba(255,255,255,0.1)', borderBottom: '1px solid rgba(0,0,0,0.3)',
-          }}>
-            SUBMIT ANOTHER
-          </Link>
+          </div>
+          <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+            <Link href="/" style={{
+              fontFamily: '"Inter", sans-serif',
+              fontWeight: 700,
+              fontSize: '14px',
+              color: '#000000',
+              letterSpacing: '1.5px',
+              textDecoration: 'none',
+              textTransform: 'uppercase',
+              background: '#ffffff',
+              padding: '0 32px',
+              height: '48px',
+              display: 'inline-flex',
+              alignItems: 'center',
+            }}>
+              ← BROWSE LIBRARY
+            </Link>
+            <Link href="/submit" style={{
+              fontFamily: '"Inter", sans-serif',
+              fontWeight: 700,
+              fontSize: '14px',
+              color: '#ffffff',
+              letterSpacing: '1.5px',
+              textDecoration: 'none',
+              textTransform: 'uppercase',
+              border: '1px solid #3c3c3c',
+              padding: '0 32px',
+              height: '48px',
+              display: 'inline-flex',
+              alignItems: 'center',
+            }}>
+              SUBMIT ANOTHER →
+            </Link>
+          </div>
         </div>
       </div>
     </div>

@@ -16,45 +16,45 @@ export default function SearchBar() {
   }
 
   return (
-    <form onSubmit={handleSubmit} style={{ display: 'flex', gap: '0' }}>
+    <form onSubmit={handleSubmit} style={{ display: 'flex' }}>
       <input
         type="text"
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         placeholder="Search skills..."
         style={{
-          width: '140px',
-          fontFamily: 'Arial, sans-serif',
-          fontSize: '12px',
-          padding: '2px 5px',
-          border: '1px solid #5a5f8c',
+          width: '300px',
+          fontFamily: '"Inter", sans-serif',
+          fontWeight: 300,
+          fontSize: '14px',
+          padding: '0 16px',
+          border: '1px solid #3c3c3c',
           borderRight: 'none',
-          background: '#fff',
-          color: '#21242e',
+          background: '#1a1a1a',
+          color: '#ffffff',
           outline: 'none',
-          borderRadius: '2px 0 0 2px',
-          height: '22px',
+          borderRadius: '0',
+          height: '48px',
         }}
       />
       <button
         type="submit"
         style={{
-          fontFamily: 'Arial, sans-serif',
+          fontFamily: '"Inter", sans-serif',
           fontWeight: 700,
-          fontSize: '11px',
-          padding: '0 10px',
-          background: '#ecab37',
-          color: '#21242e',
-          border: '1px solid #5a5f8c',
+          fontSize: '14px',
+          padding: '0 24px',
+          background: '#ffffff',
+          color: '#000000',
+          border: 'none',
           cursor: 'pointer',
-          letterSpacing: '0.5px',
-          borderRadius: '0 2px 2px 0',
-          height: '22px',
-          borderTop: '1px solid rgba(255,255,255,0.5)',
-          borderBottom: '1px solid rgba(0,0,0,0.2)',
+          letterSpacing: '1.5px',
+          borderRadius: '0',
+          height: '48px',
+          textTransform: 'uppercase',
         }}
       >
-        GO
+        SEARCH
       </button>
     </form>
   )

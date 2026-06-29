@@ -1,58 +1,54 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap');
 @import "tailwindcss";
 
 @theme {
-  /* Brand & signal */
-  --color-primary: #e60012;
-  --color-signal: #f68d1f;
-  --color-amber: #ecab37;
-  --color-nav-gold: #e48600;
+  --color-canvas: #000000;
+  --color-surface-soft: #0d0d0d;
+  --color-surface-card: #1a1a1a;
+  --color-surface-elevated: #262626;
+  --color-carbon-gray: #2b2b2b;
+  --color-hairline: #3c3c3c;
+  --color-hairline-strong: #262626;
 
-  /* Chrome surfaces */
-  --color-canvas: #7a8aba;
-  --color-canvas-soft: #9fbee7;
-  --color-lavender: #acace7;
-  --color-ice: #c0d5e6;
-  --color-periwinkle: #8ba1d4;
-  --color-chrome-indigo: #3d4f97;
-  --color-muted-indigo: #60619c;
-  --color-platinum: #dedede;
-  --color-surface: #ffffff;
-  --color-carbon: #21242e;
-  --color-hairline: #5a5f8c;
+  --color-primary: #ffffff;
+  --color-on-dark: #ffffff;
+  --color-body: #bbbbbb;
+  --color-body-strong: #e6e6e6;
+  --color-muted: #7e7e7e;
 
-  /* Text */
-  --color-ink: #21242e;
-  --color-ink-soft: #3d4f97;
-  --color-on-primary: #ffffff;
+  --color-m-blue-light: #0066b1;
+  --color-m-blue-dark: #1c69d4;
+  --color-m-red: #e22718;
+  --color-bmw-blue: #1c69d4;
+  --color-electric-blue: #0653b6;
 
-  /* Semantic */
-  --color-systems-teal: #206479;
-  --color-games-red: #a7282b;
+  --color-warning: #f4b400;
+  --color-success: #0fa336;
 
-  /* Font — all Arial, no webfonts */
-  --font-display: "Arial Black", Arial, Helvetica, sans-serif;
-  --font-ui: Arial, Helvetica, sans-serif;
+  --font-display: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-ui: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 
-  /* Radius */
   --radius-none: 0px;
   --radius-xs: 2px;
   --radius-sm: 4px;
   --radius-md: 6px;
-  --radius-lg: 10px;
   --radius-full: 9999px;
 }
 
 * { box-sizing: border-box; }
 
 body {
-  background: #5a6a9a;
-  color: #21242e;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 12px;
-  line-height: 1.4;
+  background: #000000;
+  color: #bbbbbb;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 1.5;
   margin: 0;
   padding: 0;
 }
 
-a { color: #3d4f97; text-decoration: none; }
-a:hover { text-decoration: underline; }
+a { color: #ffffff; text-decoration: none; }
+a:hover { opacity: 0.8; }
+
+::placeholder { color: #7e7e7e; }

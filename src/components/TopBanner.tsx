@@ -1,135 +1,80 @@
 import Link from 'next/link'
 
-const NAV_ITEMS = ['SKILLS', 'CATEGORIES', 'SUBMIT', 'GITHUB']
-const NAV_HREFS: Record<string, string> = {
-  SKILLS: '/',
-  CATEGORIES: '/?view=categories',
-  SUBMIT: '/submit',
-  GITHUB: 'https://github.com/asomer-1/rl-skills-library',
-}
-
-const SUBNAV = [
-  { label: 'All Skills', href: '/' },
-  { label: 'Email', href: '/?category=email' },
-  { label: 'Calendar', href: '/?category=calendar' },
-  { label: 'Rocketlane', href: '/?category=rocketlane' },
-  { label: 'Research', href: '/?category=research' },
-  { label: 'Writing', href: '/?category=writing' },
-  { label: 'Data', href: '/?category=data' },
-  { label: 'Tools', href: '/?category=tools' },
+const NAV_ITEMS = [
+  { label: 'Browse', href: '/' },
+  { label: 'Categories', href: '/?view=categories' },
+  { label: 'GitHub', href: 'https://github.com/asomer-1/rl-skills-library' },
 ]
+
+const M_STRIPE = 'linear-gradient(to right, #0066b1 0%, #0066b1 33.33%, #1c69d4 33.33%, #1c69d4 66.66%, #e22718 66.66%, #e22718 100%)'
 
 export default function TopBanner() {
   return (
-    <div>
-      {/* Primary nav — carbon slab with halftone */}
+    <nav style={{
+      background: '#000000',
+      borderBottom: '1px solid #3c3c3c',
+      position: 'sticky',
+      top: 0,
+      zIndex: 100,
+    }}>
       <div style={{
-        background: '#21242e',
-        backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.07) 1px, transparent 1px)',
-        backgroundSize: '4px 4px',
-        height: '36px',
+        maxWidth: '1440px',
+        margin: '0 auto',
+        height: '64px',
         display: 'flex',
         alignItems: 'center',
-        padding: '0 12px',
-        gap: '0',
-        borderBottom: '2px solid #3d4f97',
+        padding: '0 40px',
+        gap: '48px',
       }}>
-        {/* Logo pill */}
-        <div style={{
-          background: '#fff',
-          borderRadius: '9999px',
-          padding: '2px 12px',
-          marginRight: '16px',
-          flexShrink: 0,
-        }}>
-          <span style={{
-            fontFamily: '"Arial Black", Arial, sans-serif',
-            fontWeight: 900,
-            fontSize: '13px',
-            color: '#e60012',
+        {/* Wordmark */}
+        <Link href="/" style={{ textDecoration: 'none', flexShrink: 0 }}>
+          <div style={{
+            fontFamily: '"Inter", sans-serif',
+            fontWeight: 700,
+            fontSize: '20px',
+            color: '#ffffff',
             letterSpacing: '-0.5px',
-          }}>RL SKILLS</span>
-        </div>
+            lineHeight: 1,
+            marginBottom: '5px',
+          }}>
+            RL SKILLS
+          </div>
+          <div style={{ height: '3px', background: M_STRIPE }} />
+        </Link>
 
-        {/* Nav words in gold */}
-        <div style={{ display: 'flex', gap: '0', flex: 1 }}>
+        {/* Nav links */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '32px', flex: 1 }}>
           {NAV_ITEMS.map((item) => (
-            <Link key={item} href={NAV_HREFS[item]} style={{
-              fontFamily: 'Arial, sans-serif',
-              fontWeight: 700,
-              fontSize: '13px',
-              color: '#e48600',
-              padding: '0 14px',
-              textDecoration: 'none',
+            <Link key={item.label} href={item.href} style={{
+              fontFamily: '"Inter", sans-serif',
+              fontWeight: 400,
+              fontSize: '14px',
+              color: '#bbbbbb',
               letterSpacing: '0.5px',
-              borderRight: '1px solid rgba(255,255,255,0.08)',
+              textDecoration: 'none',
             }}>
-              {item}
+              {item.label}
             </Link>
           ))}
         </div>
 
-        {/* Amber utility chips */}
-        <div style={{ display: 'flex', gap: '6px', marginLeft: 'auto' }}>
-          <Link href="/submit" style={{
-            background: '#ecab37',
-            color: '#21242e',
-            fontFamily: 'Arial, sans-serif',
-            fontWeight: 700,
-            fontSize: '11px',
-            padding: '3px 10px',
-            borderRadius: '2px',
-            textDecoration: 'none',
-            letterSpacing: '0.5px',
-            borderTop: '1px solid rgba(255,255,255,0.4)',
-            borderBottom: '1px solid rgba(0,0,0,0.2)',
-          }}>
-            SUBMIT SKILL
-          </Link>
-          <Link href="/?q=" style={{
-            background: '#ecab37',
-            color: '#21242e',
-            fontFamily: 'Arial, sans-serif',
-            fontWeight: 700,
-            fontSize: '11px',
-            padding: '3px 10px',
-            borderRadius: '2px',
-            textDecoration: 'none',
-            letterSpacing: '0.5px',
-            borderTop: '1px solid rgba(255,255,255,0.4)',
-            borderBottom: '1px solid rgba(0,0,0,0.2)',
-          }}>
-            SEARCH
-          </Link>
-        </div>
+        {/* CTA */}
+        <Link href="/submit" style={{
+          fontFamily: '"Inter", sans-serif',
+          fontWeight: 700,
+          fontSize: '14px',
+          color: '#ffffff',
+          letterSpacing: '1.5px',
+          textDecoration: 'none',
+          textTransform: 'uppercase',
+          border: '1px solid #ffffff',
+          padding: '10px 24px',
+          display: 'inline-block',
+          flexShrink: 0,
+        }}>
+          SUBMIT SKILL
+        </Link>
       </div>
-
-      {/* Subnav strip — pale sky */}
-      <div style={{
-        background: '#9fbee7',
-        height: '24px',
-        display: 'flex',
-        alignItems: 'center',
-        padding: '0 12px',
-        gap: '0',
-        borderBottom: '1px solid #3d4f97',
-      }}>
-        {SUBNAV.map((item, i) => (
-          <Link key={item.label} href={item.href} style={{
-            fontFamily: 'Arial, sans-serif',
-            fontWeight: 700,
-            fontSize: '11px',
-            color: '#21242e',
-            padding: '0 10px',
-            textDecoration: 'none',
-            letterSpacing: '0.5px',
-            borderRight: i < SUBNAV.length - 1 ? '1px solid #3d4f97' : 'none',
-            textTransform: 'uppercase',
-          }}>
-            {item.label}
-          </Link>
-        ))}
-      </div>
-    </div>
+    </nav>
   )
 }
