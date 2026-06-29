@@ -127,7 +127,7 @@ export default function SubmitPage() {
           <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
             <div>
               <label style={labelStyle}>Submitter Name *</label>
-              <input required style={inputStyle} value={form.submitter_github} onChange={(e) => set('submitter_github', e.target.value)} placeholder="e.g. asomer-1" />
+              <input required style={inputStyle} value={form.submitter_github} onChange={(e) => set('submitter_github', e.target.value)} placeholder="e.g. Austin Somer" />
             </div>
             <div>
               <label style={labelStyle}>Skill Name *</label>
@@ -152,7 +152,7 @@ export default function SubmitPage() {
             </div>
             <div>
               <label style={labelStyle}>Tags (comma-separated)</label>
-              <input style={inputStyle} value={form.tags} onChange={(e) => set('tags', e.target.value)} placeholder="e.g. email, gmail, drafting" />
+              <input style={inputStyle} value={form.tags} onChange={(e) => set('tags', e.target.value)} placeholder="e.g. Customer Portal, Timesheets, Admin-Tooling, etc" />
             </div>
             <div>
               <label style={labelStyle}>Skill File Content *</label>
