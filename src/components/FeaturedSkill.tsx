@@ -38,7 +38,7 @@ export default function FeaturedSkill({ skills }: { skills: Skill[] }) {
   }
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', flex: 1, minHeight: 0 }}>
       {/* Header row */}
       <div style={{
         display: 'flex',
@@ -99,10 +99,13 @@ export default function FeaturedSkill({ skills }: { skills: Skill[] }) {
         style={{
           position: 'relative',
           flex: 1,
+          minHeight: 0,
           border: '1px solid #3c3c3c',
           background: '#0d0d0d',
           overflow: 'hidden',
           cursor: 'copy',
+          display: 'flex',
+          flexDirection: 'column',
         }}
       >
         <pre style={{
@@ -113,7 +116,7 @@ export default function FeaturedSkill({ skills }: { skills: Skill[] }) {
           lineHeight: 1.6,
           color: '#bbbbbb',
           overflow: 'auto',
-          height: '100%',
+          flex: 1,
           whiteSpace: 'pre-wrap',
           wordBreak: 'break-word',
           boxSizing: 'border-box',

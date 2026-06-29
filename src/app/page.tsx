@@ -97,7 +97,7 @@ export default async function HomePage({ searchParams }: HomeProps) {
           </div>
 
           {/* Right: featured skill */}
-          <div style={{ flex: 1, minWidth: 0, minHeight: '320px' }}>
+          <div style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
             <FeaturedSkill skills={skills} />
           </div>
         </div>
