@@ -16,8 +16,8 @@ const FOOTER_LINKS = [
 export default function Footer() {
   return (
     <footer style={{
-      background: '#000000',
-      borderTop: '1px solid #3c3c3c',
+      background: 'var(--bg-page)',
+      borderTop: '1px solid var(--border)',
       padding: '64px 40px',
     }}>
       <div style={{ maxWidth: '1440px', margin: '0 auto' }}>
@@ -31,7 +31,7 @@ export default function Footer() {
               fontFamily: '"Inter", sans-serif',
               fontWeight: 700,
               fontSize: '20px',
-              color: '#ffffff',
+              color: 'var(--text-primary)',
               letterSpacing: '-0.5px',
               marginBottom: '8px',
             }}>
@@ -41,7 +41,7 @@ export default function Footer() {
               fontFamily: '"Inter", sans-serif',
               fontWeight: 300,
               fontSize: '14px',
-              color: '#7e7e7e',
+              color: 'var(--text-muted)',
               maxWidth: '240px',
               lineHeight: 1.5,
             }}>
@@ -56,7 +56,7 @@ export default function Footer() {
                 fontFamily: '"Inter", sans-serif',
                 fontWeight: 400,
                 fontSize: '14px',
-                color: '#7e7e7e',
+                color: 'var(--text-muted)',
                 letterSpacing: '0.5px',
                 textDecoration: 'none',
               }}>
@@ -68,7 +68,7 @@ export default function Footer() {
 
         {/* Bottom bar */}
         <div style={{
-          borderTop: '1px solid #3c3c3c',
+          borderTop: '1px solid var(--border)',
           paddingTop: '24px',
           display: 'flex',
           justifyContent: 'space-between',
@@ -81,7 +81,7 @@ export default function Footer() {
               fontFamily: '"Inter", sans-serif',
               fontWeight: 300,
               fontSize: '12px',
-              color: '#7e7e7e',
+              color: 'var(--text-muted)',
               letterSpacing: '0.5px',
             }}>
               ©2026 Rocketlane — Internal Tool
@@ -90,7 +90,7 @@ export default function Footer() {
               fontFamily: '"Inter", sans-serif',
               fontWeight: 300,
               fontSize: '12px',
-              color: '#4a4a4a',
+              color: 'var(--text-faint)',
               letterSpacing: '0.5px',
             }}>
               Built by asomer-1
@@ -100,7 +100,7 @@ export default function Footer() {
             fontFamily: '"Inter", sans-serif',
             fontWeight: 700,
             fontSize: '12px',
-            color: '#7e7e7e',
+            color: 'var(--text-muted)',
             letterSpacing: '1px',
             textTransform: 'uppercase',
           }}>

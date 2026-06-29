@@ -14,7 +14,7 @@ export default function SectionLabelBar({ label, count }: SectionLabelBarProps) 
           fontFamily: '"Inter", sans-serif',
           fontWeight: 700,
           fontSize: '14px',
-          color: '#ffffff',
+          color: 'var(--text-primary)',
           textTransform: 'uppercase',
           letterSpacing: '1.5px',
         }}>
@@ -25,7 +25,7 @@ export default function SectionLabelBar({ label, count }: SectionLabelBarProps) 
             fontFamily: '"Inter", sans-serif',
             fontWeight: 300,
             fontSize: '12px',
-            color: '#7e7e7e',
+            color: 'var(--text-muted)',
             letterSpacing: '0.5px',
           }}>
             {count} {count === 1 ? 'SKILL' : 'SKILLS'}

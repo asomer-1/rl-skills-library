@@ -38,7 +38,7 @@ export default function SortBar() {
     fontSize: '11px',
     letterSpacing: '1.5px',
     padding: '6px 14px',
-    border: '1px solid #3c3c3c',
+    border: '1px solid var(--border)',
     cursor: 'pointer',
     background: 'transparent',
     textTransform: 'uppercase',
@@ -50,7 +50,7 @@ export default function SortBar() {
         fontFamily: '"Inter", sans-serif',
         fontWeight: 700,
         fontSize: '11px',
-        color: '#7e7e7e',
+        color: 'var(--text-muted)',
         letterSpacing: '1.5px',
         textTransform: 'uppercase',
         marginRight: '4px',
@@ -63,9 +63,9 @@ export default function SortBar() {
           onClick={() => setSort(key)}
           style={{
             ...BASE,
-            color: currentSort === key ? '#000000' : '#7e7e7e',
-            background: currentSort === key ? '#ffffff' : 'transparent',
-            borderColor: currentSort === key ? '#ffffff' : '#3c3c3c',
+            color: currentSort === key ? 'var(--bg-page)' : 'var(--text-muted)',
+            background: currentSort === key ? 'var(--text-primary)' : 'transparent',
+            borderColor: currentSort === key ? 'var(--text-primary)' : 'var(--border)',
           }}
         >
           {label}
@@ -75,8 +75,8 @@ export default function SortBar() {
         onClick={toggleDir}
         style={{
           ...BASE,
-          color: '#bbbbbb',
-          borderColor: '#3c3c3c',
+          color: 'var(--text-secondary)',
+          borderColor: 'var(--border)',
           padding: '6px 10px',
         }}
         title={currentDir === 'asc' ? 'Ascending' : 'Descending'}

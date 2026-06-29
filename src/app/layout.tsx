@@ -3,6 +3,7 @@ import './globals.css'
 import PageFrame from '@/components/PageFrame'
 import TopBanner from '@/components/TopBanner'
 import Footer from '@/components/Footer'
+import ThemeProvider from '@/components/ThemeProvider'
 
 export const metadata: Metadata = {
   title: 'RL Skills Library',
@@ -13,11 +14,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body>
-        <PageFrame>
-          <TopBanner />
-          <main>{children}</main>
-          <Footer />
-        </PageFrame>
+        <ThemeProvider>
+          <PageFrame>
+            <TopBanner />
+            <main>{children}</main>
+            <Footer />
+          </PageFrame>
+        </ThemeProvider>
       </body>
     </html>
   )

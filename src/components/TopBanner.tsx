@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import ThemeToggle from './ThemeToggle'
 
 const NAV_ITEMS = [
   { label: 'Browse', href: '/' },
@@ -10,8 +11,8 @@ const M_STRIPE = 'linear-gradient(to right, #0066b1 0%, #0066b1 33.33%, #1c69d4 
 export default function TopBanner() {
   return (
     <nav style={{
-      background: '#000000',
-      borderBottom: '1px solid #3c3c3c',
+      background: 'var(--bg-page)',
+      borderBottom: '1px solid var(--border)',
       position: 'sticky',
       top: 0,
       zIndex: 100,
@@ -31,7 +32,7 @@ export default function TopBanner() {
             fontFamily: '"Inter", sans-serif',
             fontWeight: 700,
             fontSize: '20px',
-            color: '#ffffff',
+            color: 'var(--text-primary)',
             letterSpacing: '-0.5px',
             lineHeight: 1,
             marginBottom: '5px',
@@ -48,7 +49,7 @@ export default function TopBanner() {
               fontFamily: '"Inter", sans-serif',
               fontWeight: 400,
               fontSize: '14px',
-              color: '#bbbbbb',
+              color: 'var(--text-secondary)',
               letterSpacing: '0.5px',
               textDecoration: 'none',
             }}>
@@ -62,17 +63,19 @@ export default function TopBanner() {
           fontFamily: '"Inter", sans-serif',
           fontWeight: 700,
           fontSize: '14px',
-          color: '#ffffff',
+          color: 'var(--text-primary)',
           letterSpacing: '1.5px',
           textDecoration: 'none',
           textTransform: 'uppercase',
-          border: '1px solid #ffffff',
+          border: '1px solid var(--text-primary)',
           padding: '10px 24px',
           display: 'inline-block',
           flexShrink: 0,
         }}>
           SUBMIT SKILL
         </Link>
+
+        <ThemeToggle />
       </div>
     </nav>
   )

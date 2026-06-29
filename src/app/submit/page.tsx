@@ -49,9 +49,9 @@ export default function SubmitPage() {
     fontWeight: 300,
     fontSize: '14px',
     padding: '0 16px',
-    border: '1px solid #3c3c3c',
-    background: '#1a1a1a',
-    color: '#ffffff',
+    border: '1px solid var(--border)',
+    background: 'var(--bg-card)',
+    color: 'var(--text-primary)',
     outline: 'none',
     borderRadius: '0',
     height: '48px',
@@ -61,7 +61,7 @@ export default function SubmitPage() {
     fontFamily: '"Inter", sans-serif',
     fontWeight: 700,
     fontSize: '11px',
-    color: '#7e7e7e',
+    color: 'var(--text-muted)',
     letterSpacing: '1.5px',
     textTransform: 'uppercase',
     display: 'block',
@@ -72,8 +72,8 @@ export default function SubmitPage() {
     <div>
       {/* Hero */}
       <div style={{
-        background: '#0d0d0d',
-        borderBottom: '1px solid #3c3c3c',
+        background: 'var(--bg-surface)',
+        borderBottom: '1px solid var(--border)',
         padding: '64px 40px',
       }}>
         <div style={{ maxWidth: '1440px', margin: '0 auto' }}>
@@ -81,7 +81,7 @@ export default function SubmitPage() {
             fontFamily: '"Inter", sans-serif',
             fontWeight: 700,
             fontSize: '56px',
-            color: '#ffffff',
+            color: 'var(--text-primary)',
             lineHeight: 1.05,
             letterSpacing: '-1px',
             textTransform: 'uppercase',
@@ -93,7 +93,7 @@ export default function SubmitPage() {
             fontFamily: '"Inter", sans-serif',
             fontWeight: 300,
             fontSize: '18px',
-            color: '#bbbbbb',
+            color: 'var(--text-secondary)',
             maxWidth: '480px',
             lineHeight: 1.5,
           }}>
@@ -112,7 +112,7 @@ export default function SubmitPage() {
           {error && (
             <div style={{
               background: '#e22718',
-              color: '#ffffff',
+              color: 'var(--text-primary)',
               padding: '14px 16px',
               marginBottom: '24px',
               fontFamily: '"Inter", sans-serif',
@@ -160,7 +160,7 @@ export default function SubmitPage() {
                 fontFamily: '"Inter", sans-serif',
                 fontWeight: 300,
                 fontSize: '13px',
-                color: '#7e7e7e',
+                color: 'var(--text-muted)',
                 marginBottom: '8px',
               }}>
                 Paste the full contents of your skill .md file.
@@ -190,8 +190,8 @@ export default function SubmitPage() {
                   fontWeight: 700,
                   fontSize: '14px',
                   padding: '0 40px',
-                  background: submitting ? '#3c3c3c' : '#ffffff',
-                  color: submitting ? '#7e7e7e' : '#000000',
+                  background: submitting ? 'var(--border)' : 'var(--text-primary)',
+                  color: submitting ? 'var(--text-muted)' : 'var(--bg-page)',
                   border: 'none',
                   borderRadius: '0',
                   cursor: submitting ? 'not-allowed' : 'pointer',
@@ -215,14 +215,14 @@ export default function SubmitPage() {
               fontFamily: '"Inter", sans-serif',
               fontWeight: 700,
               fontSize: '14px',
-              color: '#ffffff',
+              color: 'var(--text-primary)',
               textTransform: 'uppercase',
               letterSpacing: '1.5px',
               marginBottom: '16px',
             }}>
               WHAT MAKES A GOOD SKILL?
             </div>
-            <div style={{ border: '1px solid #3c3c3c' }}>
+            <div style={{ border: '1px solid var(--border)' }}>
               {[
                 'Clear trigger conditions',
                 'One job done well',
@@ -231,13 +231,13 @@ export default function SubmitPage() {
                 'Tested before submitting',
               ].map((tip, i, arr) => (
                 <div key={tip} style={{
-                  background: '#0d0d0d',
+                  background: 'var(--bg-surface)',
                   padding: '14px 16px',
-                  borderBottom: i < arr.length - 1 ? '1px solid #3c3c3c' : 'none',
+                  borderBottom: i < arr.length - 1 ? '1px solid var(--border)' : 'none',
                   fontFamily: '"Inter", sans-serif',
                   fontWeight: 300,
                   fontSize: '14px',
-                  color: '#bbbbbb',
+                  color: 'var(--text-secondary)',
                   lineHeight: 1.4,
                 }}>
                   — {tip}
@@ -253,7 +253,7 @@ export default function SubmitPage() {
               fontFamily: '"Inter", sans-serif',
               fontWeight: 700,
               fontSize: '14px',
-              color: '#ffffff',
+              color: 'var(--text-primary)',
               textTransform: 'uppercase',
               letterSpacing: '1.5px',
               marginBottom: '16px',
@@ -261,13 +261,13 @@ export default function SubmitPage() {
               PUBLISHING
             </div>
             <div style={{
-              background: '#1a1a1a',
-              border: '1px solid #3c3c3c',
+              background: 'var(--bg-card)',
+              border: '1px solid var(--border)',
               padding: '20px',
               fontFamily: '"Inter", sans-serif',
               fontWeight: 300,
               fontSize: '14px',
-              color: '#bbbbbb',
+              color: 'var(--text-secondary)',
               lineHeight: 1.6,
             }}>
               Skills publish immediately and are live in the library as soon as you submit. Anyone on the team can download or copy the file.

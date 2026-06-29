@@ -16,9 +16,9 @@ const BTN: React.CSSProperties = {
   letterSpacing: '1.5px',
   height: '48px',
   padding: '0 24px',
-  border: '1px solid #3c3c3c',
+  border: '1px solid var(--border)',
   background: 'transparent',
-  color: '#ffffff',
+  color: 'var(--text-primary)',
   cursor: 'pointer',
   textTransform: 'uppercase',
   display: 'inline-flex',
@@ -79,7 +79,7 @@ export default function SkillActions({ content, filename, skillId, initialCount 
   return (
     <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', alignItems: 'center' }}>
       {/* Download — primary action */}
-      <button onClick={handleDownload} style={{ ...BTN, background: '#ffffff', color: '#000000', border: 'none' }}>
+      <button onClick={handleDownload} style={{ ...BTN, background: 'var(--text-primary)', color: 'var(--bg-page)', border: 'none' }}>
         DOWNLOAD .MD ↓
       </button>
 
@@ -94,8 +94,8 @@ export default function SkillActions({ content, filename, skillId, initialCount 
         disabled={voting}
         style={{
           ...BTN,
-          background: voted ? '#ffffff' : 'transparent',
-          color: voted ? '#000000' : '#ffffff',
+          background: voted ? 'var(--text-primary)' : 'transparent',
+          color: voted ? 'var(--bg-page)' : 'var(--text-primary)',
           opacity: voting ? 0.5 : 1,
         }}
       >

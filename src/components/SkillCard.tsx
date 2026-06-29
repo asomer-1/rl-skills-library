@@ -12,8 +12,8 @@ export default function SkillCard({ skill }: SkillCardProps) {
       style={{ textDecoration: 'none', display: 'block' }}
     >
       <div style={{
-        background: '#1a1a1a',
-        borderBottom: '1px solid #3c3c3c',
+        background: 'var(--bg-card)',
+        borderBottom: '1px solid var(--border)',
         padding: '20px 24px',
         display: 'flex',
         alignItems: 'center',
@@ -23,7 +23,7 @@ export default function SkillCard({ skill }: SkillCardProps) {
           fontFamily: '"Inter", sans-serif',
           fontWeight: 300,
           fontSize: '11px',
-          color: '#7e7e7e',
+          color: 'var(--text-muted)',
           letterSpacing: '0.5px',
           flexShrink: 0,
           minWidth: '80px',
@@ -36,7 +36,7 @@ export default function SkillCard({ skill }: SkillCardProps) {
             fontFamily: '"Inter", sans-serif',
             fontWeight: 700,
             fontSize: '16px',
-            color: '#ffffff',
+            color: 'var(--text-primary)',
             marginBottom: '4px',
             overflow: 'hidden',
             textOverflow: 'ellipsis',
@@ -48,7 +48,7 @@ export default function SkillCard({ skill }: SkillCardProps) {
             fontFamily: '"Inter", sans-serif',
             fontWeight: 300,
             fontSize: '14px',
-            color: '#bbbbbb',
+            color: 'var(--text-secondary)',
             overflow: 'hidden',
             textOverflow: 'ellipsis',
             whiteSpace: 'nowrap',
@@ -63,7 +63,7 @@ export default function SkillCard({ skill }: SkillCardProps) {
               fontFamily: '"Inter", sans-serif',
               fontWeight: 700,
               fontSize: '10px',
-              color: '#7e7e7e',
+              color: 'var(--text-muted)',
               letterSpacing: '1px',
               textTransform: 'uppercase',
             }}>
@@ -79,14 +79,14 @@ export default function SkillCard({ skill }: SkillCardProps) {
           fontFamily: '"Inter", sans-serif',
           fontWeight: 300,
           fontSize: '13px',
-          color: '#7e7e7e',
+          color: 'var(--text-muted)',
         }}>
           <span>{skill.download_count ?? 0} ↓</span>
           <span>{skill.vote_count} ▲</span>
         </div>
 
         <div style={{
-          color: '#ffffff',
+          color: 'var(--text-primary)',
           fontSize: '20px',
           fontWeight: 300,
           flexShrink: 0,

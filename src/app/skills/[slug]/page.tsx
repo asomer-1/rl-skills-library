@@ -25,8 +25,8 @@ export default async function SkillDetailPage(props: PageProps<'/skills/[slug]'>
     <div>
       {/* Breadcrumb */}
       <div style={{
-        background: '#000000',
-        borderBottom: '1px solid #3c3c3c',
+        background: 'var(--bg-page)',
+        borderBottom: '1px solid var(--border)',
         padding: '12px 40px',
       }}>
         <div style={{ maxWidth: '1440px', margin: '0 auto' }}>
@@ -34,22 +34,22 @@ export default async function SkillDetailPage(props: PageProps<'/skills/[slug]'>
             fontFamily: '"Inter", sans-serif',
             fontWeight: 300,
             fontSize: '12px',
-            color: '#7e7e7e',
+            color: 'var(--text-muted)',
             letterSpacing: '0.5px',
           }}>
-            <Link href="/" style={{ color: '#7e7e7e' }}>Skills Library</Link>
+            <Link href="/" style={{ color: 'var(--text-muted)' }}>Skills Library</Link>
             {' / '}
-            <Link href={`/?category=${skill.category}`} style={{ color: '#7e7e7e' }}>{meta?.label}</Link>
+            <Link href={`/?category=${skill.category}`} style={{ color: 'var(--text-muted)' }}>{meta?.label}</Link>
             {' / '}
-            <span style={{ color: '#bbbbbb' }}>{skill.name}</span>
+            <span style={{ color: 'var(--text-secondary)' }}>{skill.name}</span>
           </span>
         </div>
       </div>
 
       {/* Hero band */}
       <div style={{
-        background: '#0d0d0d',
-        borderBottom: '1px solid #3c3c3c',
+        background: 'var(--bg-surface)',
+        borderBottom: '1px solid var(--border)',
         padding: '64px 40px',
       }}>
         <div style={{ maxWidth: '1440px', margin: '0 auto' }}>
@@ -58,7 +58,7 @@ export default async function SkillDetailPage(props: PageProps<'/skills/[slug]'>
             fontFamily: '"Inter", sans-serif',
             fontWeight: 700,
             fontSize: '12px',
-            color: '#7e7e7e',
+            color: 'var(--text-muted)',
             letterSpacing: '1.5px',
             textTransform: 'uppercase',
             marginBottom: '16px',
@@ -71,7 +71,7 @@ export default async function SkillDetailPage(props: PageProps<'/skills/[slug]'>
             fontFamily: '"Inter", sans-serif',
             fontWeight: 700,
             fontSize: '56px',
-            color: '#ffffff',
+            color: 'var(--text-primary)',
             lineHeight: 1.05,
             letterSpacing: '-1px',
             textTransform: 'uppercase',
@@ -86,7 +86,7 @@ export default async function SkillDetailPage(props: PageProps<'/skills/[slug]'>
             fontFamily: '"Inter", sans-serif',
             fontWeight: 300,
             fontSize: '18px',
-            color: '#bbbbbb',
+            color: 'var(--text-secondary)',
             marginBottom: '32px',
             maxWidth: '640px',
             lineHeight: 1.5,
@@ -102,10 +102,10 @@ export default async function SkillDetailPage(props: PageProps<'/skills/[slug]'>
                   fontFamily: '"Inter", sans-serif',
                   fontWeight: 700,
                   fontSize: '11px',
-                  color: '#bbbbbb',
+                  color: 'var(--text-secondary)',
                   letterSpacing: '1px',
                   textTransform: 'uppercase',
-                  border: '1px solid #3c3c3c',
+                  border: '1px solid var(--border)',
                   padding: '5px 12px',
                   textDecoration: 'none',
                 }}>
@@ -136,7 +136,7 @@ export default async function SkillDetailPage(props: PageProps<'/skills/[slug]'>
             fontFamily: '"Inter", sans-serif',
             fontWeight: 700,
             fontSize: '14px',
-            color: '#ffffff',
+            color: 'var(--text-primary)',
             textTransform: 'uppercase',
             letterSpacing: '1.5px',
             marginBottom: '20px',
@@ -144,11 +144,11 @@ export default async function SkillDetailPage(props: PageProps<'/skills/[slug]'>
             SKILL FILE
           </div>
           <div style={{
-            background: '#1a1a1a',
-            border: '1px solid #3c3c3c',
+            background: 'var(--bg-card)',
+            border: '1px solid var(--border)',
           }}>
             <div style={{
-              borderBottom: '1px solid #3c3c3c',
+              borderBottom: '1px solid var(--border)',
               padding: '10px 16px',
               display: 'flex',
               alignItems: 'center',
@@ -158,7 +158,7 @@ export default async function SkillDetailPage(props: PageProps<'/skills/[slug]'>
                 fontFamily: '"Inter", sans-serif',
                 fontWeight: 700,
                 fontSize: '11px',
-                color: '#7e7e7e',
+                color: 'var(--text-muted)',
                 letterSpacing: '1px',
                 textTransform: 'uppercase',
               }}>
@@ -174,7 +174,7 @@ export default async function SkillDetailPage(props: PageProps<'/skills/[slug]'>
               whiteSpace: 'pre-wrap',
               wordBreak: 'break-word',
               margin: 0,
-              color: '#e6e6e6',
+              color: 'var(--text-bright)',
               background: 'transparent',
             }}>
               {skill.content}
@@ -191,14 +191,14 @@ export default async function SkillDetailPage(props: PageProps<'/skills/[slug]'>
               fontFamily: '"Inter", sans-serif',
               fontWeight: 700,
               fontSize: '14px',
-              color: '#ffffff',
+              color: 'var(--text-primary)',
               textTransform: 'uppercase',
               letterSpacing: '1.5px',
               marginBottom: '16px',
             }}>
               SKILL DETAILS
             </div>
-            <div style={{ border: '1px solid #3c3c3c' }}>
+            <div style={{ border: '1px solid var(--border)' }}>
               {[
                 { label: 'AUTHOR', value: skill.author },
                 { label: 'VERSION', value: `v${skill.version}` },
@@ -208,15 +208,15 @@ export default async function SkillDetailPage(props: PageProps<'/skills/[slug]'>
                 { label: 'DOWNLOADS', value: String(skill.download_count ?? 0) },
               ].map(({ label, value }, i, arr) => (
                 <div key={label} style={{
-                  background: '#0d0d0d',
+                  background: 'var(--bg-surface)',
                   padding: '16px',
-                  borderBottom: i < arr.length - 1 ? '1px solid #3c3c3c' : 'none',
+                  borderBottom: i < arr.length - 1 ? '1px solid var(--border)' : 'none',
                 }}>
                   <div style={{
                     fontFamily: '"Inter", sans-serif',
                     fontWeight: 700,
                     fontSize: '11px',
-                    color: '#7e7e7e',
+                    color: 'var(--text-muted)',
                     letterSpacing: '1.5px',
                     textTransform: 'uppercase',
                     marginBottom: '4px',
@@ -227,7 +227,7 @@ export default async function SkillDetailPage(props: PageProps<'/skills/[slug]'>
                     fontFamily: '"Inter", sans-serif',
                     fontWeight: 400,
                     fontSize: '16px',
-                    color: '#ffffff',
+                    color: 'var(--text-primary)',
                   }}>
                     {value}
                   </div>
@@ -239,16 +239,16 @@ export default async function SkillDetailPage(props: PageProps<'/skills/[slug]'>
           {/* Category link */}
           <Link href={`/?category=${skill.category}`} style={{
             display: 'block',
-            border: '1px solid #3c3c3c',
+            border: '1px solid var(--border)',
             padding: '16px',
-            background: '#1a1a1a',
+            background: 'var(--bg-card)',
             textDecoration: 'none',
           }}>
             <div style={{
               fontFamily: '"Inter", sans-serif',
               fontWeight: 700,
               fontSize: '11px',
-              color: '#7e7e7e',
+              color: 'var(--text-muted)',
               letterSpacing: '1.5px',
               textTransform: 'uppercase',
               marginBottom: '8px',
@@ -259,7 +259,7 @@ export default async function SkillDetailPage(props: PageProps<'/skills/[slug]'>
               fontFamily: '"Inter", sans-serif',
               fontWeight: 700,
               fontSize: '16px',
-              color: '#ffffff',
+              color: 'var(--text-primary)',
             }}>
               {meta?.label} →
             </div>
