@@ -1,0 +1,11 @@
+slug: tools/submit-skill
+name: Submit Skill
+description: Submit a Claude Code skill to the RL Skills Library directly from Claude Code — no web form needed.
+category: tools
+author: asomer-1
+tags:
+  - meta
+  - library
+  - publishing
+  - tools
+version: "1.0"
