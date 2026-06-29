@@ -23,32 +23,38 @@ export default function SearchBar() {
         onChange={(e) => setQuery(e.target.value)}
         placeholder="Search skills..."
         style={{
-          flex: 1,
-          fontFamily: '"Times New Roman", Times, serif',
-          fontSize: '13px',
-          padding: '4px 6px',
-          border: '1px solid #000',
+          width: '140px',
+          fontFamily: 'Arial, sans-serif',
+          fontSize: '12px',
+          padding: '2px 5px',
+          border: '1px solid #5a5f8c',
           borderRight: 'none',
           background: '#fff',
-          color: '#000',
+          color: '#21242e',
           outline: 'none',
+          borderRadius: '2px 0 0 2px',
+          height: '22px',
         }}
       />
       <button
         type="submit"
         style={{
-          fontFamily: 'Helvetica, Arial, sans-serif',
+          fontFamily: 'Arial, sans-serif',
           fontWeight: 700,
           fontSize: '11px',
-          padding: '4px 10px',
-          background: '#000',
-          color: '#fff',
-          border: '1px solid #000',
+          padding: '0 10px',
+          background: '#ecab37',
+          color: '#21242e',
+          border: '1px solid #5a5f8c',
           cursor: 'pointer',
-          textTransform: 'uppercase',
+          letterSpacing: '0.5px',
+          borderRadius: '0 2px 2px 0',
+          height: '22px',
+          borderTop: '1px solid rgba(255,255,255,0.5)',
+          borderBottom: '1px solid rgba(0,0,0,0.2)',
         }}
       >
-        FIND
+        GO
       </button>
     </form>
   )

@@ -16,7 +16,7 @@ export default function VoteButton({ skillId, initialCount, initialVoted, userGi
 
   async function handleVote() {
     if (!userGithub) {
-      alert('Sign in with GitHub to vote.')
+      alert('Enter your GitHub username to vote.')
       return
     }
     setLoading(true)
@@ -40,22 +40,36 @@ export default function VoteButton({ skillId, initialCount, initialVoted, userGi
       onClick={handleVote}
       disabled={loading}
       style={{
-        fontFamily: 'Helvetica, Arial, sans-serif',
+        fontFamily: 'Arial, sans-serif',
         fontWeight: 700,
-        fontSize: '12px',
-        padding: '6px 16px',
-        background: voted ? '#e91d2a' : '#000',
+        fontSize: '11px',
+        padding: '5px 14px',
+        background: voted ? '#e60012' : '#f68d1f',
         color: '#fff',
-        border: '1px solid #000',
+        border: 'none',
+        borderRadius: '2px',
         cursor: loading ? 'not-allowed' : 'pointer',
-        textTransform: 'uppercase',
+        letterSpacing: '0.5px',
         display: 'flex',
         alignItems: 'center',
         gap: '6px',
         opacity: loading ? 0.6 : 1,
+        borderTop: '1px solid rgba(255,255,255,0.4)',
+        borderBottom: '1px solid rgba(0,0,0,0.2)',
       }}
     >
-      <span style={{ fontSize: '16px', lineHeight: 1 }}>{voted ? '▲' : '△'}</span>
+      <span style={{
+        width: '22px',
+        height: '22px',
+        borderRadius: '9999px',
+        background: 'rgba(0,0,0,0.2)',
+        display: 'inline-flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        fontSize: '12px',
+      }}>
+        {voted ? '▲' : '△'}
+      </span>
       {count} {count === 1 ? 'VOTE' : 'VOTES'}
     </button>
   )

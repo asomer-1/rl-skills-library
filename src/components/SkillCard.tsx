@@ -1,171 +1,131 @@
 import Link from 'next/link'
-import NewBurst from './NewBurst'
 import type { Skill } from '@/lib/types'
-import { CATEGORY_META } from '@/lib/types'
 
 interface SkillCardProps {
   skill: Skill
 }
 
 export default function SkillCard({ skill }: SkillCardProps) {
-  const meta = CATEGORY_META[skill.category]
-  const tint = meta?.tint ?? '#b3bd95'
+  const isNew = skill.is_new
 
   return (
-    <div style={{ position: 'relative', borderBottom: '1px solid #000' }}>
-      {skill.is_new && <NewBurst />}
+    <div style={{
+      background: '#dedede',
+      borderRadius: '4px',
+      borderTop: '1px solid rgba(255,255,255,0.8)',
+      borderBottom: '1px solid #5a5f8c',
+      marginBottom: '3px',
+      display: 'flex',
+      alignItems: 'center',
+      padding: '6px 8px',
+      gap: '8px',
+      position: 'relative',
+    }}>
+      {/* NEW badge */}
+      {isNew && (
+        <div style={{
+          background: '#e60012',
+          color: '#fff',
+          fontFamily: 'Arial, sans-serif',
+          fontWeight: 700,
+          fontSize: '9px',
+          padding: '1px 4px',
+          borderRadius: '2px',
+          letterSpacing: '0.5px',
+          flexShrink: 0,
+        }}>
+          NEW
+        </div>
+      )}
 
-      {/* Title bar */}
-      <div
-        style={{
-          background: '#fff',
-          borderBottom: '1px solid #000',
-          padding: '5px 12px',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-        }}
-      >
-        <Link
-          href={`/skills/${skill.slug}`}
-          style={{
-            fontFamily: 'Helvetica, Arial, sans-serif',
-            fontWeight: 700,
-            fontSize: '13px',
-            color: '#000',
-            textDecoration: 'none',
-            textTransform: 'uppercase',
-            letterSpacing: '0.02em',
-          }}
-        >
+      {/* Category dot */}
+      <div style={{
+        width: '8px',
+        height: '8px',
+        borderRadius: '9999px',
+        background: '#f68d1f',
+        flexShrink: 0,
+        border: '1px solid rgba(0,0,0,0.2)',
+      }} />
+
+      {/* Title + description */}
+      <div style={{ flex: 1, minWidth: 0 }}>
+        <Link href={`/skills/${skill.slug.replace(/\//g, '--')}`} style={{
+          fontFamily: 'Arial, sans-serif',
+          fontWeight: 700,
+          fontSize: '12px',
+          color: '#3d4f97',
+          display: 'block',
+          overflow: 'hidden',
+          textOverflow: 'ellipsis',
+          whiteSpace: 'nowrap',
+        }}>
           {skill.name}
         </Link>
-        <span
-          style={{
-            fontFamily: 'Helvetica, Arial, sans-serif',
-            fontSize: '11px',
-            color: '#666',
-            fontWeight: 400,
-          }}
-        >
-          v{skill.version}
-        </span>
+        <div style={{
+          fontFamily: 'Arial, sans-serif',
+          fontSize: '11px',
+          color: '#21242e',
+          opacity: 0.7,
+          overflow: 'hidden',
+          textOverflow: 'ellipsis',
+          whiteSpace: 'nowrap',
+        }}>
+          {skill.description}
+        </div>
       </div>
 
-      {/* Body */}
-      <div
-        style={{
-          background: tint,
-          padding: '10px 12px',
-          display: 'flex',
-          gap: '12px',
-          alignItems: 'flex-start',
-          justifyContent: 'space-between',
-        }}
-      >
-        <div style={{ flex: 1, minWidth: 0 }}>
-          <p
-            style={{
-              fontFamily: '"Times New Roman", Times, serif',
-              fontSize: '13px',
-              color: '#000',
-              margin: '0 0 6px 0',
-              lineHeight: 1.4,
-            }}
-          >
-            {skill.description}
-          </p>
-
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px', marginBottom: '6px' }}>
-            {skill.tags?.map((tag) => (
-              <Link
-                key={tag}
-                href={`/?tag=${encodeURIComponent(tag)}`}
-                style={{
-                  fontFamily: 'Helvetica, Arial, sans-serif',
-                  fontSize: '10px',
-                  fontWeight: 700,
-                  color: '#000',
-                  background: 'rgba(0,0,0,0.12)',
-                  border: '1px solid rgba(0,0,0,0.3)',
-                  padding: '1px 5px',
-                  textDecoration: 'none',
-                  textTransform: 'uppercase',
-                }}
-              >
-                {tag}
-              </Link>
-            ))}
-          </div>
-
-          <div
-            style={{
-              fontFamily: 'Helvetica, Arial, sans-serif',
-              fontSize: '11px',
-              color: '#000',
-              opacity: 0.7,
-            }}
-          >
-            by {skill.author}
-          </div>
-        </div>
-
-        {/* Right notch — vote count + link */}
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            gap: '4px',
-            minWidth: '56px',
-            borderLeft: '1px solid rgba(0,0,0,0.2)',
-            paddingLeft: '10px',
-          }}
-        >
-          <div
-            style={{
-              fontFamily: '"Arial Black", Helvetica, sans-serif',
-              fontWeight: 900,
-              fontSize: '20px',
-              color: '#000',
-              lineHeight: 1,
-            }}
-          >
-            {skill.vote_count}
-          </div>
-          <div
-            style={{
-              fontFamily: 'Helvetica, Arial, sans-serif',
-              fontSize: '9px',
-              color: '#000',
-              opacity: 0.6,
-              textTransform: 'uppercase',
-              textAlign: 'center',
-            }}
-          >
-            VOTES
-          </div>
-          <Link
-            href={`/skills/${skill.slug}`}
-            style={{
-              fontFamily: 'Helvetica, Arial, sans-serif',
-              fontWeight: 700,
-              fontSize: '10px',
-              color: '#000',
-              background: '#fff',
-              border: '1px solid #000',
-              padding: '2px 6px',
-              textDecoration: 'none',
-              textTransform: 'uppercase',
-              marginTop: '4px',
-              display: 'block',
-              textAlign: 'center',
-            }}
-          >
-            VIEW
+      {/* Tags */}
+      <div style={{ display: 'flex', gap: '3px', flexShrink: 0 }}>
+        {skill.tags?.slice(0, 2).map((tag) => (
+          <Link key={tag} href={`/?tag=${encodeURIComponent(tag)}`} style={{
+            background: '#ecab37',
+            color: '#21242e',
+            fontFamily: 'Arial, sans-serif',
+            fontWeight: 700,
+            fontSize: '9px',
+            padding: '1px 5px',
+            borderRadius: '2px',
+            textDecoration: 'none',
+            letterSpacing: '0.3px',
+            borderTop: '1px solid rgba(255,255,255,0.5)',
+          }}>
+            {tag}
           </Link>
-        </div>
+        ))}
       </div>
+
+      {/* Author + votes */}
+      <div style={{
+        fontFamily: 'Arial, sans-serif',
+        fontSize: '10px',
+        color: '#3d4f97',
+        flexShrink: 0,
+        textAlign: 'right',
+      }}>
+        <div style={{ fontWeight: 700 }}>{skill.vote_count} ▲</div>
+        <div style={{ opacity: 0.7 }}>{skill.author}</div>
+      </div>
+
+      {/* Arrow chip */}
+      <Link href={`/skills/${skill.slug.replace(/\//g, '--')}`} style={{
+        background: '#f68d1f',
+        color: '#fff',
+        width: '18px',
+        height: '18px',
+        borderRadius: '2px',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        fontSize: '10px',
+        fontWeight: 700,
+        textDecoration: 'none',
+        flexShrink: 0,
+        borderTop: '1px solid rgba(255,255,255,0.4)',
+        borderBottom: '1px solid rgba(0,0,0,0.2)',
+      }}>
+        ›
+      </Link>
     </div>
   )
 }

@@ -1,60 +1,58 @@
 @import "tailwindcss";
 
 @theme {
-  /* Brand & accent */
-  --color-primary: #e91d2a;
-  --color-yellow-sticker: #fcc20f;
-  --color-purple-stripe: #6a26a4;
+  /* Brand & signal */
+  --color-primary: #e60012;
+  --color-signal: #f68d1f;
+  --color-amber: #ecab37;
+  --color-nav-gold: #e48600;
 
-  /* Surface */
-  --color-frame-ink: #000000;
-  --color-canvas: #ffffff;
-  --color-ink: #000000;
-  --color-link: #0000ee;
+  /* Chrome surfaces */
+  --color-canvas: #7a8aba;
+  --color-canvas-soft: #9fbee7;
+  --color-lavender: #acace7;
+  --color-ice: #c0d5e6;
+  --color-periwinkle: #8ba1d4;
+  --color-chrome-indigo: #3d4f97;
+  --color-muted-indigo: #60619c;
+  --color-platinum: #dedede;
+  --color-surface: #ffffff;
+  --color-carbon: #21242e;
+  --color-hairline: #5a5f8c;
 
-  /* Ribbon-card tint family */
-  --color-tint-olive: #8e8a25;
-  --color-tint-sage: #b3bd95;
-  --color-tint-salmon: #d77a7a;
-  --color-tint-peach: #e6915d;
-  --color-tint-lime: #c0d4a7;
-  --color-tint-sky: #9ab6c8;
-  --color-tint-steel: #a5b8c0;
-  --color-tint-periwinkle: #8c9ae0;
+  /* Text */
+  --color-ink: #21242e;
+  --color-ink-soft: #3d4f97;
+  --color-on-primary: #ffffff;
 
-  /* Font families */
-  --font-display: "Arial Black", "Arial Bold", Helvetica, system-ui, sans-serif;
-  --font-heading: Helvetica, Arial, system-ui, sans-serif;
-  --font-body: "Times New Roman", Times, serif;
+  /* Semantic */
+  --color-systems-teal: #206479;
+  --color-games-red: #a7282b;
 
-  /* Border radius — everything square except full */
-  --radius-sm: 0px;
-  --radius: 0px;
-  --radius-md: 0px;
-  --radius-lg: 0px;
-  --radius-xl: 0px;
-  --radius-2xl: 0px;
-  --radius-3xl: 0px;
+  /* Font — all Arial, no webfonts */
+  --font-display: "Arial Black", Arial, Helvetica, sans-serif;
+  --font-ui: Arial, Helvetica, sans-serif;
+
+  /* Radius */
+  --radius-none: 0px;
+  --radius-xs: 2px;
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 10px;
+  --radius-full: 9999px;
 }
 
-* {
-  box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
 body {
-  background: #888;
-  color: #000;
-  font-family: "Times New Roman", Times, serif;
-  font-size: 14px;
+  background: #5a6a9a;
+  color: #21242e;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 12px;
   line-height: 1.4;
-  min-height: 100vh;
+  margin: 0;
+  padding: 0;
 }
 
-a {
-  color: #0000ee;
-  text-decoration: underline;
-}
-
-a:visited {
-  color: #551a8b;
-}
+a { color: #3d4f97; text-decoration: none; }
+a:hover { text-decoration: underline; }
