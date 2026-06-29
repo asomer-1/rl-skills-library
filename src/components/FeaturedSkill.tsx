@@ -98,14 +98,11 @@ export default function FeaturedSkill({ skills }: { skills: Skill[] }) {
         onClick={handleCopy}
         style={{
           position: 'relative',
-          flex: 1,
-          minHeight: 0,
           border: '1px solid #3c3c3c',
           background: '#0d0d0d',
           overflow: 'hidden',
           cursor: 'copy',
-          display: 'flex',
-          flexDirection: 'column',
+          height: '280px',
         }}
       >
         <pre style={{
@@ -115,8 +112,8 @@ export default function FeaturedSkill({ skills }: { skills: Skill[] }) {
           fontSize: '11px',
           lineHeight: 1.6,
           color: '#bbbbbb',
-          overflow: 'auto',
-          flex: 1,
+          overflowY: 'auto',
+          height: '100%',
           whiteSpace: 'pre-wrap',
           wordBreak: 'break-word',
           boxSizing: 'border-box',
