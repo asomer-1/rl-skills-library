@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import { createSubmission } from '@/lib/data'
+import { publishSkill } from '@/lib/data'
 import type { Category } from '@/lib/types'
 import { CATEGORIES } from '@/lib/types'
 
@@ -15,7 +15,7 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Invalid category' }, { status: 400 })
     }
 
-    const submission = await createSubmission({
+    const skill = await publishSkill({
       skill_name,
       description,
       category: category as Category,
@@ -24,7 +24,7 @@ export async function POST(request: Request) {
       submitter_github,
     })
 
-    return NextResponse.json({ ok: true, id: submission.id })
+    return NextResponse.json({ ok: true, slug: skill.slug })
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : 'Unknown error'
     return NextResponse.json({ error: message }, { status: 500 })

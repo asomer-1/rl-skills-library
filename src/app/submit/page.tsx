@@ -32,11 +32,10 @@ export default function SubmitPage() {
           tags: form.tags.split(',').map((t) => t.trim()).filter(Boolean),
         }),
       })
-      if (!res.ok) {
-        const { error: msg } = await res.json()
-        throw new Error(msg ?? 'Submission failed')
-      }
-      router.push('/submit/success')
+      const json = await res.json()
+      if (!res.ok) throw new Error(json.error ?? 'Submission failed')
+      const { slug } = json
+      router.push(`/skills/${slug.replace(/\//g, '--')}`)
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : 'Submission failed')
     } finally {
@@ -259,7 +258,7 @@ export default function SubmitPage() {
               letterSpacing: '1.5px',
               marginBottom: '16px',
             }}>
-              REVIEW PROCESS
+              PUBLISHING
             </div>
             <div style={{
               background: '#1a1a1a',
@@ -271,7 +270,7 @@ export default function SubmitPage() {
               color: '#bbbbbb',
               lineHeight: 1.6,
             }}>
-              A team member reviews and merges your submission within 1–2 business days. Once approved, it will appear in the library automatically.
+              Skills publish immediately and are live in the library as soon as you submit. Anyone on the team can download or copy the file.
             </div>
           </div>
         </div>

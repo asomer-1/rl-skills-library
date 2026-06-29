@@ -2,7 +2,7 @@ import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { getSkillBySlug, getAllSkills } from '@/lib/data'
 import { CATEGORY_META } from '@/lib/types'
-import VoteButton from '@/components/VoteButton'
+import SkillActions from '@/components/SkillActions'
 
 export const revalidate = 60
 
@@ -116,41 +116,12 @@ export default async function SkillDetailPage(props: PageProps<'/skills/[slug]'>
           )}
 
           {/* Actions */}
-          <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', alignItems: 'center' }}>
-            <VoteButton skillId={skill.id} initialCount={skill.vote_count} initialVoted={false} />
-            <Link href={`https://github.com/asomer-1/rl-skills-library/blob/main/${skill.github_path}`} target="_blank" rel="noopener noreferrer" style={{
-              fontFamily: '"Inter", sans-serif',
-              fontWeight: 700,
-              fontSize: '14px',
-              color: '#ffffff',
-              letterSpacing: '1.5px',
-              border: '1px solid #3c3c3c',
-              padding: '0 24px',
-              height: '48px',
-              display: 'inline-flex',
-              alignItems: 'center',
-              textTransform: 'uppercase',
-              textDecoration: 'none',
-            }}>
-              VIEW ON GITHUB →
-            </Link>
-            <Link href="https://github.com/asomer-1/rl-skills-library/fork" target="_blank" rel="noopener noreferrer" style={{
-              fontFamily: '"Inter", sans-serif',
-              fontWeight: 700,
-              fontSize: '14px',
-              color: '#ffffff',
-              letterSpacing: '1.5px',
-              border: '1px solid #3c3c3c',
-              padding: '0 24px',
-              height: '48px',
-              display: 'inline-flex',
-              alignItems: 'center',
-              textTransform: 'uppercase',
-              textDecoration: 'none',
-            }}>
-              FORK / REMIX →
-            </Link>
-          </div>
+          <SkillActions
+            content={skill.content}
+            filename={`${skill.slug.split('/').pop() ?? skill.slug}.md`}
+            skillId={skill.id}
+            initialCount={skill.vote_count}
+          />
         </div>
       </div>
 

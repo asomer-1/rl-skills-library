@@ -34,7 +34,7 @@ export default function SubmitSuccessPage() {
             lineHeight: 1.6,
             marginBottom: '40px',
           }}>
-            Your skill has been submitted for review. A team member will review and merge it within 1–2 business days. Once approved, it will appear in the library automatically.
+            Your skill is now live in the library. Download it or copy the file to your <code style={{ fontFamily: '"Courier New", monospace', background: '#1a1a1a', padding: '1px 5px' }}>.claude/skills/</code> directory to start using it.
           </div>
           <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
             <Link href="/" style={{
