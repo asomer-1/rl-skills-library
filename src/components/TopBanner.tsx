@@ -2,7 +2,7 @@ import Link from 'next/link'
 
 const NAV_ITEMS = [
   { label: 'Browse', href: '/' },
-  { label: 'How to Install', href: '/how-to-install' },
+  { label: 'How to Install Skills', href: '/how-to-install' },
 ]
 
 const M_STRIPE = 'linear-gradient(to right, #0066b1 0%, #0066b1 33.33%, #1c69d4 33.33%, #1c69d4 66.66%, #e22718 66.66%, #e22718 100%)'
