@@ -3,6 +3,7 @@ import { Suspense } from 'react'
 import SkillCard from '@/components/SkillCard'
 import SectionLabelBar from '@/components/SectionEyebrow'
 import SearchBar from '@/components/SearchBar'
+import FeaturedSkill from '@/components/FeaturedSkill'
 import { getAllSkills, searchSkills, getSkillsByTag } from '@/lib/data'
 import { CATEGORY_META, CATEGORIES, type Category } from '@/lib/types'
 
@@ -40,50 +41,64 @@ export default async function HomePage({ searchParams }: HomeProps) {
         borderBottom: '1px solid #3c3c3c',
         padding: '96px 40px',
       }}>
-        <div style={{ maxWidth: '1440px', margin: '0 auto' }}>
-          <div style={{
-            fontFamily: '"Inter", sans-serif',
-            fontWeight: 700,
-            fontSize: '72px',
-            color: '#ffffff',
-            lineHeight: 1,
-            letterSpacing: '-1px',
-            textTransform: 'uppercase',
-            marginBottom: '24px',
-          }}>
-            RL SKILLS<br />LIBRARY.
-          </div>
-          <div style={{
-            fontFamily: '"Inter", sans-serif',
-            fontWeight: 300,
-            fontSize: '18px',
-            color: '#bbbbbb',
-            marginBottom: '40px',
-            maxWidth: '480px',
-            lineHeight: 1.5,
-          }}>
-            Ready-to-use Claude Code skills built by the Rocketlane team. Browse, vote, and contribute.
-          </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '16px', flexWrap: 'wrap' }}>
-            <Suspense fallback={null}>
-              <SearchBar />
-            </Suspense>
-            <Link href="/submit" style={{
+        <div style={{
+          maxWidth: '1440px',
+          margin: '0 auto',
+          display: 'flex',
+          gap: '80px',
+          alignItems: 'stretch',
+        }}>
+          {/* Left: wordmark + search */}
+          <div style={{ flex: '0 0 auto' }}>
+            <div style={{
               fontFamily: '"Inter", sans-serif',
               fontWeight: 700,
-              fontSize: '14px',
-              color: '#000000',
-              letterSpacing: '1.5px',
-              textDecoration: 'none',
+              fontSize: '72px',
+              color: '#ffffff',
+              lineHeight: 1,
+              letterSpacing: '-1px',
               textTransform: 'uppercase',
-              background: '#ffffff',
-              padding: '0 32px',
-              height: '48px',
-              display: 'inline-flex',
-              alignItems: 'center',
+              marginBottom: '24px',
             }}>
-              SUBMIT SKILL →
-            </Link>
+              RL SKILLS<br />LIBRARY.
+            </div>
+            <div style={{
+              fontFamily: '"Inter", sans-serif',
+              fontWeight: 300,
+              fontSize: '18px',
+              color: '#bbbbbb',
+              marginBottom: '40px',
+              maxWidth: '480px',
+              lineHeight: 1.5,
+            }}>
+              Ready-to-use Claude Code skills built by the Rocketlane team. Browse, vote, and contribute.
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '16px', flexWrap: 'wrap' }}>
+              <Suspense fallback={null}>
+                <SearchBar />
+              </Suspense>
+              <Link href="/submit" style={{
+                fontFamily: '"Inter", sans-serif',
+                fontWeight: 700,
+                fontSize: '14px',
+                color: '#000000',
+                letterSpacing: '1.5px',
+                textDecoration: 'none',
+                textTransform: 'uppercase',
+                background: '#ffffff',
+                padding: '0 32px',
+                height: '48px',
+                display: 'inline-flex',
+                alignItems: 'center',
+              }}>
+                SUBMIT SKILL →
+              </Link>
+            </div>
+          </div>
+
+          {/* Right: featured skill */}
+          <div style={{ flex: 1, minWidth: 0, minHeight: '320px' }}>
+            <FeaturedSkill skills={skills} />
           </div>
         </div>
       </div>
