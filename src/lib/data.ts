@@ -78,6 +78,10 @@ export async function updateSkill(input: {
   author: string
   description?: string
   tags?: string[]
+  name?: string
+  readme?: string
+  example_prompt?: string
+  example_output?: string
 }): Promise<Skill> {
   // Fetch current skill to snapshot
   const { data: current, error: fetchError } = await supabaseAdmin
@@ -108,7 +112,11 @@ export async function updateSkill(input: {
     author: input.author,
     updated_at: new Date().toISOString(),
   }
-  if (input.description) updatePayload.description = input.description
+  if (input.name !== undefined) updatePayload.name = input.name
+  if (input.description !== undefined) updatePayload.description = input.description
+  if (input.readme !== undefined) updatePayload.readme = input.readme
+  if (input.example_prompt !== undefined) updatePayload.example_prompt = input.example_prompt
+  if (input.example_output !== undefined) updatePayload.example_output = input.example_output
 
   const { data: updated, error: updateError } = await supabaseAdmin
     .from('skills')
