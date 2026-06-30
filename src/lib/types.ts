@@ -15,6 +15,9 @@ export interface Skill {
   slug: string
   name: string
   description: string
+  readme: string | null
+  example_prompt: string | null
+  example_output: string | null
   category: Category
   author: string
   version: string

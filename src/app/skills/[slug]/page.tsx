@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
+import ReactMarkdown from 'react-markdown'
 import { getSkillBySlug, getAllSkills, getSkillVersions } from '@/lib/data'
 import { CATEGORY_META } from '@/lib/types'
 import SkillActions from '@/components/SkillActions'
@@ -136,6 +137,111 @@ export default async function SkillDetailPage(props: PageProps<'/skills/[slug]'>
       <div style={{ maxWidth: '1440px', margin: '0 auto', padding: '40px', display: 'flex', gap: '64px' }}>
         {/* Skill file content */}
         <div style={{ flex: 1, minWidth: 0 }}>
+
+          {/* README — rendered markdown */}
+          {skill.readme && (
+            <div style={{ marginBottom: '48px' }}>
+              <div style={{
+                fontFamily: '"Inter", sans-serif',
+                fontWeight: 700,
+                fontSize: '14px',
+                color: 'var(--text-primary)',
+                textTransform: 'uppercase',
+                letterSpacing: '1.5px',
+                marginBottom: '20px',
+              }}>
+                ABOUT THIS SKILL
+              </div>
+              <div style={{
+                fontFamily: '"Inter", sans-serif',
+                fontWeight: 300,
+                fontSize: '15px',
+                lineHeight: 1.7,
+                color: 'var(--text-secondary)',
+                maxWidth: '720px',
+              }} className="skill-readme">
+                <ReactMarkdown>{skill.readme}</ReactMarkdown>
+              </div>
+            </div>
+          )}
+
+          {/* Example prompt + output */}
+          {(skill.example_prompt || skill.example_output) && (
+            <div style={{ marginBottom: '48px' }}>
+              <div style={{
+                fontFamily: '"Inter", sans-serif',
+                fontWeight: 700,
+                fontSize: '14px',
+                color: 'var(--text-primary)',
+                textTransform: 'uppercase',
+                letterSpacing: '1.5px',
+                marginBottom: '20px',
+              }}>
+                EXAMPLE
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                {skill.example_prompt && (
+                  <div>
+                    <div style={{
+                      fontFamily: '"Inter", sans-serif',
+                      fontWeight: 700,
+                      fontSize: '11px',
+                      color: 'var(--text-muted)',
+                      letterSpacing: '1.5px',
+                      textTransform: 'uppercase',
+                      marginBottom: '8px',
+                    }}>
+                      PROMPT
+                    </div>
+                    <pre style={{
+                      fontFamily: '"Courier New", Courier, monospace',
+                      fontSize: '13px',
+                      lineHeight: 1.6,
+                      padding: '16px 20px',
+                      background: 'var(--bg-card)',
+                      border: '1px solid var(--border)',
+                      whiteSpace: 'pre-wrap',
+                      wordBreak: 'break-word',
+                      margin: 0,
+                      color: 'var(--text-bright)',
+                    }}>
+                      {skill.example_prompt}
+                    </pre>
+                  </div>
+                )}
+                {skill.example_output && (
+                  <div>
+                    <div style={{
+                      fontFamily: '"Inter", sans-serif',
+                      fontWeight: 700,
+                      fontSize: '11px',
+                      color: 'var(--text-muted)',
+                      letterSpacing: '1.5px',
+                      textTransform: 'uppercase',
+                      marginBottom: '8px',
+                    }}>
+                      OUTPUT
+                    </div>
+                    <pre style={{
+                      fontFamily: '"Courier New", Courier, monospace',
+                      fontSize: '13px',
+                      lineHeight: 1.6,
+                      padding: '16px 20px',
+                      background: 'var(--bg-card)',
+                      border: '1px solid var(--border)',
+                      whiteSpace: 'pre-wrap',
+                      wordBreak: 'break-word',
+                      margin: 0,
+                      color: 'var(--text-secondary)',
+                    }}>
+                      {skill.example_output}
+                    </pre>
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+
           <div style={{
             fontFamily: '"Inter", sans-serif',
             fontWeight: 700,

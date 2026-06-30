@@ -12,8 +12,8 @@ export default function SubmitPage() {
   const [error, setError] = useState('')
   const [conflict, setConflict] = useState<{ skillId: string; slug: string; version: string } | null>(null)
   const [form, setForm] = useState({
-    skill_name: '', description: '', category: 'tools',
-    content: '', tags: '', submitter_github: '',
+    skill_name: '', description: '', readme: '', example_prompt: '', example_output: '',
+    category: 'tools', content: '', tags: '', submitter_github: '',
   })
 
   function set(field: string, value: string) {
@@ -31,6 +31,9 @@ export default function SubmitPage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           ...form,
+          readme: form.readme || undefined,
+          example_prompt: form.example_prompt || undefined,
+          example_output: form.example_output || undefined,
           tags: form.tags.split(',').map((t) => t.trim()).filter(Boolean),
         }),
       })
@@ -61,6 +64,9 @@ export default function SubmitPage() {
           content: form.content,
           author: form.submitter_github,
           description: form.description || undefined,
+          readme: form.readme || undefined,
+          example_prompt: form.example_prompt || undefined,
+          example_output: form.example_output || undefined,
           tags: form.tags.split(',').map((t) => t.trim()).filter(Boolean),
         }),
       })
@@ -251,6 +257,64 @@ export default function SubmitPage() {
             <div>
               <label style={labelStyle}>Short Description *</label>
               <input required style={inputStyle} value={form.description} onChange={(e) => set('description', e.target.value)} placeholder="One sentence describing what this skill does" />
+            </div>
+            <div>
+              <label style={labelStyle}>About This Skill — README <span style={{ fontWeight: 300, textTransform: 'none', letterSpacing: 0 }}>(optional)</span></label>
+              <div style={{
+                fontFamily: '"Inter", sans-serif',
+                fontWeight: 300,
+                fontSize: '13px',
+                color: 'var(--text-muted)',
+                marginBottom: '8px',
+              }}>
+                Longer description: what it does, when to use it, caveats. Markdown supported.
+              </div>
+              <textarea
+                style={{
+                  ...inputStyle,
+                  height: '160px',
+                  resize: 'vertical',
+                  padding: '12px 16px',
+                  lineHeight: 1.6,
+                }}
+                value={form.readme}
+                onChange={(e) => set('readme', e.target.value)}
+                placeholder="## What this skill does&#10;&#10;This skill..."
+              />
+            </div>
+            <div>
+              <label style={labelStyle}>Example Prompt <span style={{ fontWeight: 300, textTransform: 'none', letterSpacing: 0 }}>(optional)</span></label>
+              <textarea
+                style={{
+                  ...inputStyle,
+                  height: '100px',
+                  resize: 'vertical',
+                  fontFamily: '"Courier New", Courier, monospace',
+                  fontSize: '13px',
+                  lineHeight: 1.6,
+                  padding: '12px 16px',
+                }}
+                value={form.example_prompt}
+                onChange={(e) => set('example_prompt', e.target.value)}
+                placeholder="e.g. /my-skill summarize the Q3 pipeline report"
+              />
+            </div>
+            <div>
+              <label style={labelStyle}>Example Output <span style={{ fontWeight: 300, textTransform: 'none', letterSpacing: 0 }}>(optional)</span></label>
+              <textarea
+                style={{
+                  ...inputStyle,
+                  height: '160px',
+                  resize: 'vertical',
+                  fontFamily: '"Courier New", Courier, monospace',
+                  fontSize: '13px',
+                  lineHeight: 1.6,
+                  padding: '12px 16px',
+                }}
+                value={form.example_output}
+                onChange={(e) => set('example_output', e.target.value)}
+                placeholder="Q3 Pipeline Summary&#10;&#10;Total ARR at risk: $420k..."
+              />
             </div>
             <div>
               <label style={labelStyle}>Tags (comma-separated)</label>

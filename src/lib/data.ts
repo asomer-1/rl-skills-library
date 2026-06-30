@@ -24,13 +24,28 @@ export async function getSkillsByCategory(category: Category): Promise<Skill[]> 
 
 export async function getSkillBySlug(slug: string): Promise<Skill | null> {
   const { data, error } = await supabase
-    .from('skills_with_tags')
+    .from('skills')
     .select('*')
     .eq('slug', slug)
     .single()
 
-  if (error) return null
-  return data
+  if (error || !data) return null
+
+  const [tagResult, voteResult] = await Promise.all([
+    supabase.from('skill_tags').select('tags(name)').eq('skill_id', data.id),
+    supabase.from('votes').select('*', { count: 'exact', head: true }).eq('skill_id', data.id),
+  ])
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const tags = (tagResult.data ?? []).map((t: any) => t.tags?.name).filter(Boolean) as string[]
+
+  return {
+    ...data,
+    tags,
+    vote_count: voteResult.count ?? 0,
+    download_count: data.download_count ?? 0,
+    is_new: data.is_new ?? false,
+  }
 }
 
 export async function searchSkills(query: string): Promise<Skill[]> {
@@ -77,11 +92,11 @@ export async function updateSkill(input: {
   content: string
   author: string
   description?: string
-  tags?: string[]
   name?: string
   readme?: string
   example_prompt?: string
   example_output?: string
+  tags?: string[]
 }): Promise<Skill> {
   // Fetch current skill to snapshot
   const { data: current, error: fetchError } = await supabaseAdmin
@@ -185,6 +200,9 @@ export async function hasVoted(skillId: string, userGithub: string): Promise<boo
 export async function publishSkill(input: {
   skill_name: string
   description: string
+  readme?: string
+  example_prompt?: string
+  example_output?: string
   category: Category
   content: string
   tags: string[]
@@ -209,6 +227,9 @@ export async function publishSkill(input: {
       slug: baseSlug,
       name: input.skill_name,
       description: input.description,
+      readme: input.readme ?? null,
+      example_prompt: input.example_prompt ?? null,
+      example_output: input.example_output ?? null,
       category: input.category,
       content: input.content,
       author: input.submitter_github,

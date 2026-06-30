@@ -76,3 +76,48 @@ a { color: #ffffff; text-decoration: none; }
 a:hover { opacity: 0.8; }
 
 ::placeholder { color: #7e7e7e; }
+
+/* Markdown prose styles for skill readme */
+.skill-readme h1, .skill-readme h2, .skill-readme h3, .skill-readme h4 {
+  font-family: "Inter", sans-serif;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 1.5em 0 0.5em;
+  letter-spacing: 0;
+  text-transform: none;
+  line-height: 1.3;
+}
+.skill-readme h1 { font-size: 20px; }
+.skill-readme h2 { font-size: 16px; }
+.skill-readme h3 { font-size: 14px; }
+.skill-readme p { margin: 0 0 1em; }
+.skill-readme ul, .skill-readme ol { margin: 0 0 1em; padding-left: 1.5em; }
+.skill-readme li { margin-bottom: 0.25em; }
+.skill-readme code {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 12px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  padding: 1px 6px;
+  color: var(--text-bright);
+}
+.skill-readme pre {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  padding: 16px;
+  overflow-x: auto;
+  margin: 0 0 1em;
+}
+.skill-readme pre code {
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: 13px;
+}
+.skill-readme strong { font-weight: 700; color: var(--text-primary); }
+.skill-readme blockquote {
+  border-left: 3px solid var(--border);
+  margin: 0 0 1em;
+  padding-left: 1em;
+  color: var(--text-muted);
+}

@@ -6,7 +6,7 @@ import { CATEGORIES } from '@/lib/types'
 export async function POST(request: Request) {
   try {
     const body = await request.json()
-    const { skill_name, description, category, content, tags, submitter_github } = body
+    const { skill_name, description, readme, example_prompt, example_output, category, content, tags, submitter_github } = body
 
     if (!skill_name || !description || !category || !content || !submitter_github) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 })
@@ -18,6 +18,9 @@ export async function POST(request: Request) {
     const result = await publishSkill({
       skill_name,
       description,
+      readme: readme || undefined,
+      example_prompt: example_prompt || undefined,
+      example_output: example_output || undefined,
       category: category as Category,
       content,
       tags: Array.isArray(tags) ? tags : [],
